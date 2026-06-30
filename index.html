@@ -312,8 +312,10 @@
       align-items: center;
       gap: 2rem;
       padding: 1.4rem 2rem;
-      background: rgba(255,255,255,0.035);
-      border: 1px solid rgba(255,255,255,0.07);
+      background: rgba(10,15,30,0.45);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid rgba(255,255,255,0.08);
       border-radius: 14px;
       transition: background 0.35s, transform 0.35s, border-color 0.35s;
       cursor: default;
@@ -539,6 +541,21 @@
       .glass { padding: 2rem 1.5rem; }
       .ev-tag { display: none; }
       footer { flex-direction: column; text-align: center; }
+
+      .hero-center { top: 22vh; padding: 0 1.5rem; }
+      .hero-eyebrow {
+        font-size: 0.6rem;
+        letter-spacing: 0.25em;
+        margin-bottom: 1.4rem;
+      }
+      .hero-title { font-size: clamp(3rem, 16vw, 5rem); letter-spacing: 0.08em; }
+      .hero-sub {
+        font-size: 0.9rem;
+        margin-top: 1.2rem;
+        max-width: 100%;
+        padding: 0 0.5rem;
+        text-align: left;
+      }
     }
   </style>
 </head>
