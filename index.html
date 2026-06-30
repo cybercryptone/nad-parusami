@@ -4,11 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>НАД ПАРУСАМИ — Клубная площадка над Чёрным морем</title>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600&family=Inter:wght@300;400;500&family=Josefin+Sans:wght@100;200;300&display=swap" rel="stylesheet">
   <style>
     :root {
-      --gold: #C9A44A;
-      --gold-light: rgba(201, 164, 74, 0.6);
+      --gold: rgba(255,255,255,0.9);
+      --gold-light: rgba(255,255,255,0.35);
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -22,14 +22,24 @@
       overflow-x: hidden;
     }
 
-    /* ── Fixed canvas ── */
-    #scene-canvas {
+    /* ── Sea photo background ── */
+    #hero-bg {
       position: fixed;
       top: 0; left: 0;
       width: 100vw; height: 100vh;
-      z-index: 0;
+      z-index: 1;
+      background: url('parus2.jpg') center 60% / cover no-repeat;
+      filter: brightness(0.72);
       pointer-events: none;
+      transition: opacity 0.05s linear;
     }
+
+    /* ── Fixed canvas ── */
+    #scene-canvas {
+      display: none;
+    }
+
+    .scene-dim { display: none; }
 
     /* ── Nav ── */
     nav {
@@ -78,7 +88,7 @@
     /* ── Scroll content wrapper ── */
     main {
       position: relative;
-      z-index: 1;
+      z-index: 3;
     }
 
     /* ── Hero ── */
@@ -92,6 +102,13 @@
       position: relative;
     }
 
+    .hero-center {
+      position: absolute;
+      top: 28vh;
+      left: 0; right: 0;
+      text-align: center;
+    }
+
     .hero-eyebrow {
       font-size: 0.65rem;
       letter-spacing: 0.45em;
@@ -103,25 +120,44 @@
     }
 
     .hero-title {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: clamp(4.5rem, 13vw, 11rem);
-      font-weight: 300;
-      letter-spacing: 0.08em;
-      line-height: 1.25;
-      color: #0b1e36;
-      text-shadow: none;
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: clamp(3.2rem, 9vw, 8rem);
+      font-weight: 100;
+      letter-spacing: 0.12em;
+      line-height: 1.15;
+      color: rgba(255,255,255,0.95);
+      text-shadow: 0 2px 40px rgba(0,20,60,0.15);
       opacity: 0;
       animation: fadeUp 1.2s ease 0.7s forwards;
+    }
+    .hero-title .spark {
+      color: #e8b84b;
+      -webkit-text-stroke: 0;
+      font-size: 0.34em;
+      vertical-align: 0.28em;
+      display: inline-block;
+      margin: 0 0.06em;
+    }
+    .hero-wave {
+      margin-top: 0.9rem;
+      color: rgba(255,255,255,0.55);
+      letter-spacing: 0.2em;
+      font-size: 1rem;
+      opacity: 0;
+      animation: fadeUp 1.2s ease 1s forwards;
     }
 
     .hero-sub {
       font-family: 'Space Grotesk', sans-serif;
-      font-size: clamp(0.9rem, 2vw, 1.25rem);
+      font-size: clamp(0.85rem, 1.5vw, 1rem);
       font-weight: 300;
-      letter-spacing: 0.35em;
-      color: rgba(11,30,54,0.55);
+      letter-spacing: 0.03em;
+      color: rgba(255,255,255,0.65);
       margin-top: 1.5rem;
-      text-transform: uppercase;
+      max-width: 480px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.75;
       opacity: 0;
       animation: fadeUp 1.2s ease 1.1s forwards;
     }
@@ -129,8 +165,8 @@
     .scroll-hint {
       position: absolute;
       bottom: 2.5rem;
-      left: 50%;
-      transform: translateX(-50%);
+      left: 0;
+      right: 0;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -140,10 +176,10 @@
     }
 
     .scroll-hint span {
-      font-size: 0.6rem;
+      font-size: 0.75rem;
       letter-spacing: 0.3em;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.35);
+      color: rgba(255,255,255,0.7);
     }
 
     .scroll-line {
@@ -165,10 +201,10 @@
 
     /* ── Journey sections ── */
     .section {
-      min-height: 100vh;
+      min-height: auto;
       display: flex;
       align-items: center;
-      padding: 8rem 5%;
+      padding: 3rem 5%;
       position: relative;
     }
 
@@ -192,18 +228,19 @@
 
     /* Glass card */
     .glass {
-      background: rgba(255,255,255,0.04);
-      backdrop-filter: blur(24px);
-      border: 1px solid rgba(255,255,255,0.09);
+      background: rgba(255,255,255,0.1);
+      backdrop-filter: blur(28px);
+      border: 1px solid rgba(255,255,255,0.25);
       border-radius: 24px;
       padding: 3rem 2.8rem;
+      color: rgba(255,255,255,0.95);
     }
 
     .label {
       font-size: 0.65rem;
       letter-spacing: 0.32em;
       text-transform: uppercase;
-      color: var(--gold);
+      color: #7dd4db;
       margin-bottom: 0.8rem;
       display: block;
     }
@@ -217,21 +254,22 @@
 
     .section-title {
       font-family: 'Space Grotesk', sans-serif;
-      font-size: clamp(2.8rem, 5.5vw, 5rem);
-      font-weight: 300;
-      line-height: 1.05;
+      font-size: clamp(1.8rem, 3.5vw, 3rem);
+      font-weight: 400;
+      line-height: 1.15;
       margin-bottom: 1.4rem;
+      color: rgba(255,255,255,0.95);
     }
 
     .section-title em {
       font-style: italic;
-      color: rgba(255,255,255,0.85);
+      color: rgba(255,255,255,0.75);
     }
 
     .section-text {
       font-size: 0.95rem;
       line-height: 1.85;
-      color: rgba(255,255,255,0.6);
+      color: rgba(255,255,255,0.88);
       font-weight: 300;
     }
 
@@ -467,12 +505,15 @@
     footer a:hover { color: rgba(255,255,255,0.7); }
 
     /* ── Particles container ── */
-    .particles {
+    .particles { display: none; }
+
+    #grain {
       position: fixed;
       inset: 0;
       pointer-events: none;
-      z-index: 2;
-      overflow: hidden;
+      z-index: 9999;
+      opacity: 0.18;
+      mix-blend-mode: screen;
     }
 
     .particle {
@@ -507,6 +548,9 @@
      CANVAS — живая сцена
 ════════════════════════════════════════════════════ -->
 <canvas id="scene-canvas"></canvas>
+<canvas id="grain"></canvas>
+<div id="hero-bg"></div>
+<div class="scene-dim"></div>
 
 <!-- ═══════════════════════════════════════════════════
      ЧАСТИЦЫ
@@ -533,9 +577,11 @@
 
   <!-- HERO -->
   <section class="hero" id="hero">
-    <p class="hero-eyebrow">Черноморское побережье · Открыто</p>
+    <div class="hero-center">
+    <p class="hero-eyebrow">Сочи · Черноморское побережье · Открыто</p>
     <h1 class="hero-title">НАД<br>ПАРУСАМИ</h1>
-    <p class="hero-sub">Клубная площадка над Чёрным морем</p>
+    <p class="hero-sub">Новый проект от Central Park Sochi. Это сочетание морского вайба и тени парка в центре города. Ностальгия по The BOX и Central Park сочетается и перевоплощается во что‑то новое.</p>
+    </div>
     <div class="scroll-hint">
       <span>Открыть</span>
       <div class="scroll-line"></div>
@@ -681,20 +727,31 @@
     <span class="label" style="display:block;">📍 Побережье</span>
     <div class="divider" style="margin:1rem auto;"></div>
     <h2 class="section-title">Приходите<br>смотреть<br>на море</h2>
-    <p class="section-text" style="max-width:460px; margin:1.8rem auto; color:rgba(255,255,255,0.5); font-size:0.9rem;">
-      Черноморское побережье · Открыто ежедневно с 12:00<br>
-      Резервирование столиков и приватных мероприятий
+    <p class="section-text" style="max-width:520px; margin:1.8rem auto; color:rgba(255,255,255,0.75); font-size:0.95rem; line-height:1.8;">
+      Новый проект от Central Park Sochi — «КРЫША НАД ПАРУСАМИ». Это сочетание морского вайба и тени парка в центре города. Ностальгия по The BOX и Central Park сочетается и перевоплощается во что‑то новое ❤️‍🔥
     </p>
-    <a href="mailto:hello@nadparusami.ru" class="btn btn--gold">Забронировать место</a>
+    <p class="section-text" style="margin:0.5rem auto 2rem; color:rgba(255,255,255,0.5); font-size:0.85rem; letter-spacing:0.1em;">
+      г. Сочи, ул. Черноморская 11 к2 · Открыто ежедневно с 12:00
+    </p>
+    <div style="display:flex; gap:1.2rem; justify-content:center; flex-wrap:wrap; margin-bottom:2.5rem;">
+      <a href="https://t.me/centralpark_sochi" target="_blank" class="btn btn--gold" style="font-size:0.7rem; padding:0.8rem 1.8rem;">Telegram</a>
+      <a href="https://www.instagram.com/centralpark.sochi" target="_blank" class="btn btn--gold" style="font-size:0.7rem; padding:0.8rem 1.8rem;">Instagram</a>
+      <a href="https://play.flat.audio/artist-page/10406" target="_blank" class="btn btn--gold" style="font-size:0.7rem; padding:0.8rem 1.8rem;">Наш плейлист</a>
+    </div>
+    <a href="https://t.me/centralpark_sochi" target="_blank" class="btn btn--gold">Забронировать место</a>
   </div>
 
 </main>
 
 <!-- FOOTER -->
 <footer>
-  <span>© 2026 НАД ПАРУСАМИ</span>
-  <span>Черноморское побережье · Открыто с 12:00</span>
-  <span><a href="mailto:hello@nadparusami.ru">hello@nadparusami.ru</a></span>
+  <span>© 2026 НАД ПАРУСАМИ · Central Park Sochi</span>
+  <span>г. Сочи, ул. Черноморская 11 к2</span>
+  <span>
+    <a href="https://t.me/centralpark_sochi" target="_blank">Telegram</a> ·
+    <a href="https://www.instagram.com/centralpark.sochi" target="_blank">Instagram</a> ·
+    <a href="https://play.flat.audio/artist-page/10406" target="_blank">Music</a>
+  </span>
 </footer>
 
 <!-- ═══════════════════════════════════════════════════
@@ -722,7 +779,8 @@ const gulls  = [];
 const wakes  = []; // water wake streaks
 
 function initEntities() {
-  stars.length = clouds.length = gulls.length = wakes.length = 0;
+  stars.length = clouds.length = gulls.length = wakes.length = planes.length = 0;
+  initPlanes();
 
   for (let i = 0; i < NUM_STARS; i++)
     stars.push({ x: Math.random(), y: Math.random() * 0.65, r: 0.4 + Math.random() * 1.4, phase: Math.random() * 6.28 });
@@ -731,7 +789,7 @@ function initEntities() {
     clouds.push({ x: Math.random(), y: 0.04 + Math.random() * 0.18, size: 0.06 + Math.random() * 0.09, spd: 0.00004 + Math.random() * 0.00003 });
 
   for (let i = 0; i < NUM_GULLS; i++)
-    gulls.push({ x: Math.random(), y: 0.1 + Math.random() * 0.22, spd: 0.0002 + Math.random() * 0.0003, wing: Math.random() * 6.28, sz: 9 + Math.random() * 8 });
+    gulls.push({ x: Math.random(), y: 0.06 + Math.random() * 0.28, spd: 0.0002 + Math.random() * 0.0003, wing: Math.random() * 6.28, sz: 4 + Math.random() * 5, vshape: Math.random() > 0.5 });
 
   for (let i = 0; i < 8; i++)
     wakes.push({ x: 0.1 + Math.random() * 0.8, y: 0.63 + Math.random() * 0.15, len: 0.04 + Math.random() * 0.06, alpha: Math.random() });
@@ -781,11 +839,11 @@ function getSeaGrad() {
 // ── Sky ──
 function drawSky() {
   const { top, bot } = getSkyGrad();
-  const g = ctx.createLinearGradient(0, 0, 0, H * 0.63);
+  const g = ctx.createLinearGradient(0, 0, 0, H * 0.45);
   g.addColorStop(0, rgba(top, 1));
   g.addColorStop(1, rgba(bot, 1));
   ctx.fillStyle = g;
-  ctx.fillRect(0, 0, W, H * 0.63);
+  ctx.fillRect(0, 0, W, H * 0.45);
 }
 
 // ── Stars ── (disabled — no night mode)
@@ -822,7 +880,7 @@ function drawSun() {
   ctx.fillStyle = g; ctx.fill();
   // reflection column
   const rw = 50 + Math.sin(t * 0.6) * 14;
-  const horizon = H * 0.6;
+  const horizon = H * 0.45;
   g = ctx.createLinearGradient(0, horizon, 0, horizon + 200);
   g.addColorStop(0, `rgba(255,210,80,${fade * 0.5})`);
   g.addColorStop(1, 'rgba(255,200,80,0)');
@@ -869,15 +927,20 @@ function drawClouds() {
 
 function drawCloud(cx, cy, size, alpha) {
   ctx.save();
-  ctx.globalAlpha = alpha;
-  ctx.fillStyle = '#fff';
+  ctx.filter = `blur(${size * 0.13}px)`;
   const blobs = [
-    [0, 0, 0.31], [-0.27, 0.06, 0.22], [0.27, 0.06, 0.24],
-    [-0.1, -0.14, 0.2], [0.14, -0.12, 0.18], [0.04, -0.04, 0.15]
+    [0, 0, 0.32, 0.92], [-0.28, 0.08, 0.22, 0.75], [0.28, 0.07, 0.25, 0.78],
+    [-0.12, -0.15, 0.2, 0.65], [0.15, -0.13, 0.19, 0.68], [0.04, -0.05, 0.16, 0.55]
   ];
-  blobs.forEach(([dx, dy, r]) => {
+  blobs.forEach(([dx, dy, r, bAlpha]) => {
+    const bx = cx + dx * size, by = cy + dy * size, br = r * size;
+    const g = ctx.createRadialGradient(bx, by - br * 0.2, 0, bx, by, br);
+    g.addColorStop(0,   `rgba(255,255,255,${alpha * bAlpha})`);
+    g.addColorStop(0.6, `rgba(240,248,255,${alpha * bAlpha * 0.7})`);
+    g.addColorStop(1,   `rgba(220,238,255,0)`);
     ctx.beginPath();
-    ctx.arc(cx + dx * size, cy + dy * size, r * size, 0, 6.28);
+    ctx.arc(bx, by, br, 0, 6.28);
+    ctx.fillStyle = g;
     ctx.fill();
   });
   ctx.restore();
@@ -889,29 +952,124 @@ function drawGulls() {
   if (!alpha) return;
   gulls.forEach(g => {
     g.x = (g.x + g.spd) % 1.25;
-    g.wing += 0.07;
+    g.wing += 0.06;
     const gy = g.y - scroll * 0.35;
-    if (gy < 0 || gy > 0.55) return;
+    if (gy < 0 || gy > 0.44) return;
     const cx = (g.x - 0.1) * W, cy = gy * H;
-    const wing = Math.sin(g.wing) * 0.45;
+    const flap = Math.sin(g.wing) * 0.5;
     ctx.save();
-    ctx.globalAlpha = alpha;
-    ctx.strokeStyle = 'rgba(255,255,255,0.75)';
-    ctx.lineWidth = 1.4;
+    ctx.globalAlpha = alpha * 0.8;
+    ctx.strokeStyle = 'rgba(255,255,255,0.8)';
+    ctx.lineWidth = 1;
     ctx.lineCap = 'round';
     ctx.beginPath();
-    ctx.moveTo(cx - g.sz, cy + Math.sin(wing) * g.sz * 0.6);
-    ctx.quadraticCurveTo(cx, cy - g.sz * 0.1, cx + g.sz, cy + Math.sin(wing) * g.sz * 0.6);
+    if (g.vshape) {
+      // V-shape галочка — два луча вниз от центра
+      const drop = g.sz * (0.3 + Math.abs(flap) * 0.4);
+      ctx.moveTo(cx - g.sz, cy - drop);
+      ctx.lineTo(cx, cy);
+      ctx.lineTo(cx + g.sz, cy - drop);
+    } else {
+      // Изогнутая дуга — парящая чайка
+      const lift = flap * g.sz * 0.5;
+      ctx.moveTo(cx - g.sz, cy + lift);
+      ctx.quadraticCurveTo(cx, cy - g.sz * 0.3, cx + g.sz, cy + lift);
+    }
     ctx.stroke();
     ctx.restore();
   });
+}
+
+// ── Planes ──
+const planes = [];
+function initPlanes() {
+  planes.length = 0;
+  planes.push({ x: 0.25, y: 0.07, spd: 0.00009, sz: 13 });
+}
+function drawPlanes() {
+  const alpha = Math.max(0, 1 - scroll * 3) * 0.7;
+  if (!alpha) return;
+  const p = planes[0];
+  p.x = (p.x + p.spd) % 1.4;
+  const px = (p.x - 0.05) * W, py = p.y * H;
+  const s = p.sz;
+  ctx.save();
+
+  // Инверсионный след — две тонкие линии
+  ctx.globalAlpha = alpha * 0.35;
+  const trailLen = W * 0.55;
+  const tg = ctx.createLinearGradient(px - trailLen, 0, px - s * 3, 0);
+  tg.addColorStop(0, 'rgba(255,255,255,0)');
+  tg.addColorStop(1, 'rgba(255,255,255,0.7)');
+  ctx.fillStyle = tg;
+  ctx.fillRect(px - trailLen, py - s * 0.18, trailLen, s * 0.12);
+  ctx.fillRect(px - trailLen, py + s * 0.06, trailLen, s * 0.12);
+
+  // Силуэт самолёта (вид сбоку, летит вправо)
+  ctx.globalAlpha = alpha * 0.75;
+  ctx.fillStyle = 'rgba(255,255,255,0.9)';
+
+  // Фюзеляж — вытянутый
+  ctx.beginPath();
+  ctx.moveTo(px + s * 3.2, py);           // нос
+  ctx.bezierCurveTo(px + s*2.8, py - s*0.28, px - s*2.2, py - s*0.28, px - s*3, py - s*0.12);
+  ctx.lineTo(px - s * 3.2, py + s * 0.05);
+  ctx.bezierCurveTo(px - s*2.2, py + s*0.28, px + s*2.8, py + s*0.28, px + s*3.2, py);
+  ctx.closePath();
+  ctx.fill();
+
+  // Крылья — стреловидные, назад
+  ctx.beginPath();
+  ctx.moveTo(px + s * 0.3, py - s * 0.15);  // передняя кромка у фюзеляжа
+  ctx.lineTo(px - s * 1.0, py - s * 2.2);   // конец крыла
+  ctx.lineTo(px - s * 1.6, py - s * 2.2);
+  ctx.lineTo(px - s * 0.4, py + s * 0.15);  // задняя кромка
+  ctx.closePath();
+  ctx.fill();
+
+  // Симметричное крыло вниз
+  ctx.beginPath();
+  ctx.moveTo(px + s * 0.3, py + s * 0.15);
+  ctx.lineTo(px - s * 1.0, py + s * 2.2);
+  ctx.lineTo(px - s * 1.6, py + s * 2.2);
+  ctx.lineTo(px - s * 0.4, py - s * 0.15);
+  ctx.closePath();
+  ctx.fill();
+
+  // Хвостовое оперение (вертикальный стабилизатор)
+  ctx.beginPath();
+  ctx.moveTo(px - s * 2.4, py - s * 0.2);
+  ctx.lineTo(px - s * 2.9, py - s * 1.1);
+  ctx.lineTo(px - s * 3.1, py - s * 0.9);
+  ctx.lineTo(px - s * 2.8, py - s * 0.2);
+  ctx.closePath();
+  ctx.fill();
+
+  // Горизонтальный стабилизатор
+  ctx.beginPath();
+  ctx.moveTo(px - s * 2.5, py - s * 0.1);
+  ctx.lineTo(px - s * 3.3, py - s * 0.8);
+  ctx.lineTo(px - s * 3.5, py - s * 0.7);
+  ctx.lineTo(px - s * 2.8, py + s * 0.1);
+  ctx.closePath();
+  ctx.fill();
+
+  ctx.beginPath();
+  ctx.moveTo(px - s * 2.5, py + s * 0.1);
+  ctx.lineTo(px - s * 3.3, py + s * 0.8);
+  ctx.lineTo(px - s * 3.5, py + s * 0.7);
+  ctx.lineTo(px - s * 2.8, py - s * 0.1);
+  ctx.closePath();
+  ctx.fill();
+
+  ctx.restore();
 }
 
 // ── Sails ──
 function drawSails() {
   const alpha = Math.max(0, 1 - scroll * 1.8) * 0.9;
   if (!alpha) return;
-  const bY = H * (0.62 - scroll * 0.05); // shared foot/base Y
+  const bY = H * (0.45 - scroll * 0.04); // shared foot/base Y
 
   // rightSail(mastX, mastTopY, mastBotY, tackX, alpha)
   // mastX  = x of the vertical mast edge (left side, right-angle corner at bottom)
@@ -922,13 +1080,13 @@ function drawSails() {
   // All sails: vertical mast on left, diagonal leech to right, fully visible
   // rightSail(mastX, apexY, footY, clewX, alpha)
   // Small background sail (far left, faded)
-  rightSail(W * 0.02, H * 0.30, bY * 0.95, W * 0.18,  alpha * 0.35);
+  rightSail(W * 0.02, H * 0.24, bY * 0.95, W * 0.18,  alpha * 0.35);
   // Left sail
-  rightSail(W * 0.15, H * 0.15, bY * 0.99, W * 0.38,  alpha * 0.82);
+  rightSail(W * 0.15, H * 0.12, bY * 0.99, W * 0.38,  alpha * 0.82);
   // Center main — tallest, most prominent
-  rightSail(W * 0.38, H * 0.04, bY,        W * 0.66,  alpha);
+  rightSail(W * 0.38, H * 0.03, bY,        W * 0.66,  alpha);
   // Right sail — fully visible, doesn't go off screen
-  rightSail(W * 0.62, H * 0.18, bY * 0.97, W * 0.85,  alpha * 0.75);
+  rightSail(W * 0.62, H * 0.14, bY * 0.97, W * 0.85,  alpha * 0.75);
 }
 
 // Right-triangle sail: vertical luff on left, horizontal foot at bottom,
@@ -1013,7 +1171,7 @@ function rightSail(mastX, apexY, footY, clewX, alpha) {
 // ── Sea ──
 function drawSea() {
   const { top, bot } = getSeaGrad();
-  const seaY = H * 0.60;
+  const seaY = H * 0.45;
   const g = ctx.createLinearGradient(0, seaY, 0, H);
   g.addColorStop(0, rgba(top, 1));
   g.addColorStop(1, rgba(bot, 1));
@@ -1021,12 +1179,12 @@ function drawSea() {
   ctx.fillRect(0, seaY, W, H - seaY);
 
   // Horizon blend
-  const hg = ctx.createLinearGradient(0, H * 0.52, 0, seaY);
+  const hg = ctx.createLinearGradient(0, H * 0.37, 0, seaY);
   const { bot: skyBot } = getSkyGrad();
   hg.addColorStop(0, rgba(skyBot, 0));
   hg.addColorStop(1, rgba(top, 0.9));
   ctx.fillStyle = hg;
-  ctx.fillRect(0, H * 0.52, W, H * 0.1);
+  ctx.fillRect(0, H * 0.37, W, H * 0.1);
 
   // Waves
   for (let i = 0; i < 5; i++) {
@@ -1041,45 +1199,8 @@ function drawSea() {
     ctx.fillStyle = `rgba(255,255,255,${walpha})`; ctx.fill();
   }
 
-  // Night party lights reflections
-  const nightAlpha = Math.max(0, (scroll - 0.78) / 0.22);
-  if (nightAlpha > 0) {
-    [
-      [0.22, '#ff6090'], [0.38, '#60d0ff'], [0.52, '#b060ff'],
-      [0.68, '#60ffb0'], [0.84, '#ffb060']
-    ].forEach(([xf, col], i) => {
-      const flicker = 0.65 + 0.35 * Math.sin(t * 3.5 + i * 2.1);
-      const rh = 90 + Math.sin(t + i) * 15;
-      const rw = 14 + Math.sin(t * 0.8 + i) * 5;
-      const hex = col.replace('#','');
-      const r = parseInt(hex.slice(0,2),16), gv = parseInt(hex.slice(2,4),16), b2 = parseInt(hex.slice(4,6),16);
-      const rg = ctx.createLinearGradient(0, seaY, 0, seaY + rh);
-      rg.addColorStop(0, `rgba(${r},${gv},${b2},${nightAlpha * flicker * 0.65})`);
-      rg.addColorStop(1, `rgba(${r},${gv},${b2},0)`);
-      ctx.fillStyle = rg;
-      ctx.fillRect(xf * W - rw / 2, seaY, rw, rh);
-    });
-  }
 }
 
-// ── Night scene decorations ──
-function drawNight() {
-  const alpha = Math.max(0, (scroll - 0.78) / 0.22);
-  if (!alpha) return;
-
-  // Ambient light blobs on terrace area
-  [
-    { x: 0.22, y: 0.59, r: 60, col: [255,100,140] },
-    { x: 0.50, y: 0.57, r: 80, col: [100,180,255] },
-    { x: 0.78, y: 0.60, r: 55, col: [180,100,255] },
-  ].forEach(l => {
-    const f = 0.7 + 0.3 * Math.sin(t * 2.5 + l.x * 8);
-    const g = ctx.createRadialGradient(l.x * W, l.y * H, 0, l.x * W, l.y * H, l.r);
-    g.addColorStop(0, `rgba(${l.col.join(',')},${alpha * f * 0.38})`);
-    g.addColorStop(1, `rgba(${l.col.join(',')},0)`);
-    ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
-  });
-}
 
 // ── Main draw ──
 function draw() {
@@ -1090,9 +1211,9 @@ function draw() {
   drawMoon();
   drawClouds();
   drawGulls();
+  drawPlanes();
   drawSails();
   drawSea();
-  drawNight();
 }
 
 // ── Resize ──
@@ -1104,12 +1225,25 @@ window.addEventListener('resize', () => { resize(); initEntities(); });
 resize(); initEntities();
 
 // ── Animate ──
-function loop() {
-  t += 0.012;
-  draw();
-  requestAnimationFrame(loop);
+// Canvas animation disabled — photo background used instead
+
+// ── Film grain overlay ──
+const grainCanvas = document.getElementById('grain');
+function renderGrain() {
+  grainCanvas.width = window.innerWidth;
+  grainCanvas.height = window.innerHeight;
+  const gc = grainCanvas.getContext('2d');
+  const imageData = gc.createImageData(grainCanvas.width, grainCanvas.height);
+  const data = imageData.data;
+  for (let i = 0; i < data.length; i += 4) {
+    const v = Math.random() * 255;
+    data[i] = data[i+1] = data[i+2] = v;
+    data[i+3] = 255;
+  }
+  gc.putImageData(imageData, 0, 0);
 }
-loop();
+setInterval(renderGrain, 80);
+renderGrain();
 
 // ────────────────────────────────────────────────────
 // SCROLL SYNC
@@ -1123,6 +1257,19 @@ window.addEventListener('scroll', () => {
     scroll = max > 0 ? window.scrollY / max : 0;
     rafPending = false;
   });
+}, { passive: true });
+
+// ────────────────────────────────────────────────────
+// HERO BG COLOR SHIFT ON SCROLL
+// ────────────────────────────────────────────────────
+const heroBgEl = document.getElementById('hero-bg');
+window.addEventListener('scroll', () => {
+  const s = Math.min(1, window.scrollY / (document.documentElement.scrollHeight - window.innerHeight));
+  const sepia    = (s * 0.75).toFixed(2);
+  const saturate = (1 + s * 0.8).toFixed(2);
+  const bright   = (0.72 - s * 0.32).toFixed(2);
+  const hue      = Math.round(-s * 30);
+  heroBgEl.style.filter = `sepia(${sepia}) saturate(${saturate}) hue-rotate(${hue}deg) brightness(${bright})`;
 }, { passive: true });
 
 // ────────────────────────────────────────────────────
