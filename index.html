@@ -777,6 +777,18 @@
       .scroll-hint { bottom: 1rem; }
     }
   </style>
+  <!-- Yandex.Metrika counter -->
+  <script type="text/javascript">
+    (function(m,e,t,r,i,k,a){
+        m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+        m[i].l=1*new Date();
+        for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+        k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+    })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=110348318', 'ym');
+    ym(110348318, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
+  </script>
+  <noscript><div><img src="https://mc.yandex.ru/watch/110348318" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+  <!-- /Yandex.Metrika counter -->
 </head>
 <body>
 
@@ -815,8 +827,8 @@
   <!-- HERO -->
   <section class="hero" id="hero">
     <div class="hero-center">
-    <p class="hero-eyebrow">Сочи · Черноморское побережье · Открыто</p>
     <h1 class="hero-title">НАД<br>ПАРУСАМИ</h1>
+    <p class="hero-eyebrow">Сочи · Черноморское побережье · Открыто</p>
     <p class="hero-sub">Мы начинали как парк внутри города.<br>Теперь мы поднимаемся выше — туда, где город открывается морю.</p>
     <div style="margin-top:2rem; opacity:0; animation:fadeUp 1.2s ease 1.4s forwards;">
       <a href="https://play.flat.audio/user-events/10406" target="_blank" class="ev-ticket-btn" style="font-size:0.72rem; padding:0.85rem 2.4rem;">Купить билет · 3 июля</a>
@@ -1530,57 +1542,72 @@ if (track) {
 (function() {
   const btn = document.getElementById('sound-btn');
   let ctx = null;
-  let gainNode = null;
-  let source = null;
-  let lfo = null;
+  let master = null;
+  let allNodes = [];
   let playing = false;
+
+  function noise(c) {
+    const len = c.sampleRate * 4;
+    const buf = c.createBuffer(1, len, c.sampleRate);
+    const d = buf.getChannelData(0);
+    for (let i = 0; i < len; i++) d[i] = Math.random() * 2 - 1;
+    const src = c.createBufferSource();
+    src.buffer = buf;
+    src.loop = true;
+    allNodes.push(src);
+    return src;
+  }
 
   function createOcean() {
     ctx = new (window.AudioContext || window.webkitAudioContext)();
+    master = ctx.createGain();
+    master.gain.setValueAtTime(0, ctx.currentTime);
+    master.gain.linearRampToValueAtTime(0.5, ctx.currentTime + 2.5);
+    master.connect(ctx.destination);
 
-    const bufferSize = ctx.sampleRate * 8;
-    const buffer = ctx.createBuffer(2, bufferSize, ctx.sampleRate);
-    for (let c = 0; c < 2; c++) {
-      const data = buffer.getChannelData(c);
-      for (let i = 0; i < bufferSize; i++) data[i] = Math.random() * 2 - 1;
-    }
+    // Слой 1: глубокий рокот
+    const n1 = noise(ctx);
+    const lp1 = ctx.createBiquadFilter();
+    lp1.type = 'lowpass'; lp1.frequency.value = 300;
+    const g1 = ctx.createGain(); g1.gain.value = 2.0;
+    n1.connect(lp1); lp1.connect(g1); g1.connect(master);
+    n1.start();
 
-    source = ctx.createBufferSource();
-    source.buffer = buffer;
-    source.loop = true;
+    // Слой 2: шелест прибоя
+    const n2 = noise(ctx);
+    const bp = ctx.createBiquadFilter();
+    bp.type = 'bandpass'; bp.frequency.value = 1200; bp.Q.value = 0.4;
+    const g2 = ctx.createGain(); g2.gain.value = 1.2;
+    n2.connect(bp); bp.connect(g2); g2.connect(master);
+    n2.start();
 
+    // Слой 3: шипение пены
+    const n3 = noise(ctx);
     const hp = ctx.createBiquadFilter();
-    hp.type = 'highpass';
-    hp.frequency.value = 80;
+    hp.type = 'highpass'; hp.frequency.value = 3000;
+    const lp3 = ctx.createBiquadFilter();
+    lp3.type = 'lowpass'; lp3.frequency.value = 8000;
+    const g3 = ctx.createGain(); g3.gain.value = 0.4;
+    n3.connect(hp); hp.connect(lp3); lp3.connect(g3); g3.connect(master);
+    n3.start();
 
-    const lp = ctx.createBiquadFilter();
-    lp.type = 'lowpass';
-    lp.frequency.value = 600;
-    lp.Q.value = 0.5;
-
-    lfo = ctx.createOscillator();
-    lfo.frequency.value = 0.1;
-    const lfoGain = ctx.createGain();
-    lfoGain.gain.value = 200;
-    lfo.connect(lfoGain);
-    lfoGain.connect(lp.frequency);
+    // LFO — ритм волн на мастер-гейне
+    const lfo = ctx.createOscillator();
+    lfo.frequency.value = 0.12;
+    const lfoG = ctx.createGain(); lfoG.gain.value = 0.18;
+    lfo.connect(lfoG); lfoG.connect(master.gain);
     lfo.start();
-
-    gainNode = ctx.createGain();
-    gainNode.gain.setValueAtTime(0, ctx.currentTime);
-    gainNode.gain.linearRampToValueAtTime(0.22, ctx.currentTime + 3);
-
-    source.connect(hp);
-    hp.connect(lp);
-    lp.connect(gainNode);
-    gainNode.connect(ctx.destination);
-    source.start();
+    allNodes.push(lfo);
   }
 
   function stopOcean() {
     if (!ctx) return;
-    gainNode.gain.linearRampToValueAtTime(0, ctx.currentTime + 1.5);
-    setTimeout(() => { source.stop(); lfo.stop(); ctx.close(); ctx = null; }, 1600);
+    master.gain.linearRampToValueAtTime(0, ctx.currentTime + 1.2);
+    setTimeout(() => {
+      allNodes.forEach(n => { try { n.stop(); } catch(e) {} });
+      allNodes = [];
+      ctx.close(); ctx = null;
+    }, 1300);
   }
 
   btn.addEventListener('click', () => {
