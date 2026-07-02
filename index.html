@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#050a18">
   <title>НАД ПАРУСАМИ — Руфтоп с видом на море в Сочи | Central Park Sochi</title>
   <meta name="description" content="НАД ПАРУСАМИ — руфтоп площадка от Central Park Sochi с видом на Черное море. Живая музыка, sunset-to-night формат, вход свободный. Сочи, ул. Черноморская 11 к2.">
   <meta name="keywords" content="НАД ПАРУСАМИ, Central Park Sochi, руфтоп Сочи, вечеринки Сочи, клуб Сочи, DJ Сочи, музыка Сочи, черное море">
@@ -450,6 +451,7 @@
       align-items: center;
       gap: 2rem;
       padding: 1.4rem 2rem;
+      min-height: 100px;
       background: rgba(10,15,30,0.45);
       backdrop-filter: blur(24px);
       -webkit-backdrop-filter: blur(24px);
@@ -512,18 +514,21 @@
     }
     .ev-ticket-btn {
       margin-left: auto;
+      flex-shrink: 0;
       cursor: pointer;
       font-family: 'Space Grotesk', sans-serif;
       font-size: 0.62rem;
       font-weight: 600;
       letter-spacing: 0.18em;
       text-transform: uppercase;
-      padding: 0.45rem 1.2rem;
+      padding: 0.55rem 1.2rem;
       background: rgba(125, 212, 219, 0.15);
       border: 1px solid rgba(125, 212, 219, 0.6);
       color: #7dd4db;
       border-radius: 50px;
       white-space: nowrap;
+      text-decoration: none;
+      display: inline-block;
       box-shadow: 0 0 16px rgba(125, 212, 219, 0.2);
       transition: background 0.3s, box-shadow 0.3s;
     }
@@ -814,7 +819,7 @@
     <h1 class="hero-title">НАД<br>ПАРУСАМИ</h1>
     <p class="hero-sub">Мы начинали как парк внутри города.<br>Теперь мы поднимаемся выше — туда, где город открывается морю.</p>
     <div style="margin-top:2rem; opacity:0; animation:fadeUp 1.2s ease 1.4s forwards;">
-      <button class="flat-ticket-widget ev-ticket-btn" data-button-color="#7dd4db" data-open-mode="iframe" data-event-id="2368" style="font-size:0.72rem; padding:0.85rem 2.4rem;">Купить билет · 3 июля</button>
+      <a href="https://play.flat.audio/user-events/10406" target="_blank" class="ev-ticket-btn" style="font-size:0.72rem; padding:0.85rem 2.4rem;">Купить билет · 3 июля</a>
     </div>
     </div>
     <div class="scroll-hint">
@@ -892,13 +897,13 @@
         <div class="ev-date"><div class="ev-day">03</div><div class="ev-month">Июл</div></div>
         <div class="ev-sep"></div>
         <div class="ev-info"><h3>FUTURA & Рома Полак</h3><p>Андрей Шушукин · Vinyl · Рома Полак · Серфинг-саунд</p></div>
-        <button class="flat-ticket-widget ev-ticket-btn" data-button-color="#7dd4db" data-open-mode="iframe" data-event-id="2368">Билет</button>
+        <a href="https://play.flat.audio/user-events/10406" target="_blank" class="ev-ticket-btn">Билет</a>
       </div>
       <div class="event-row">
         <div class="ev-date"><div class="ev-day">04</div><div class="ev-month">Июл</div></div>
         <div class="ev-sep"></div>
         <div class="ev-info"><h3>YULA VOVK</h3><p>Vinyl · Танцевальная сцена · Летний сет</p></div>
-        <button class="flat-ticket-widget ev-ticket-btn" data-button-color="#7dd4db" data-open-mode="iframe" data-event-id="2368">Билет</button>
+        <a href="https://play.flat.audio/user-events/10406" target="_blank" class="ev-ticket-btn">Билет</a>
       </div>
       <div class="event-row">
         <div class="ev-date"><div class="ev-day">05</div><div class="ev-month">Июл</div></div>
@@ -941,15 +946,6 @@
           <span class="blog-link">Читать</span>
         </div>
       </a>
-      <a href="#" class="blog-card">
-        <div class="blog-img blog-img-3">🍹</div>
-        <div class="blog-body">
-          <div class="blog-date">20 Мая 2026</div>
-          <h3 class="blog-title">Рецепт «Чёрного шторма»</h3>
-          <p class="blog-excerpt">Наш бармен Алекс рассказывает о создании фирменного коктейля, вдохновлённого черноморскими штормами и мистикой подводного мира.</p>
-          <span class="blog-link">Читать</span>
-        </div>
-      </a>
     </div>
   </div>
 
@@ -968,12 +964,6 @@
     <!-- Главная кнопка -->
     <a href="https://t.me/centralpark_sochi" target="_blank" class="btn btn--gold" style="font-size:0.75rem; padding:1rem 3rem; margin-bottom:2.5rem; display:inline-block;">Забронировать место</a>
 
-    <!-- Соцсети в ряд -->
-    <div style="display:flex; gap:1rem; justify-content:center; flex-wrap:wrap;">
-      <a href="https://t.me/centralpark_sochi" target="_blank" class="btn btn--gold" style="font-size:0.65rem; padding:0.6rem 1.4rem;">Telegram</a>
-      <a href="https://www.instagram.com/centralpark.sochi" target="_blank" class="btn btn--gold" style="font-size:0.65rem; padding:0.6rem 1.4rem;">Instagram</a>
-      <a href="https://play.flat.audio/artist-page/10406" target="_blank" class="btn btn--gold" style="font-size:0.65rem; padding:0.6rem 1.4rem;">Плейлист</a>
-    </div>
   </div>
 
 </main>
@@ -986,7 +976,7 @@
     <a href="https://play.flat.audio/artist-page/10406" target="_blank">Music</a>
   </div>
   <span>г. Сочи · Черноморская 11 к2</span>
-  <span>© 2025 НАД ПАРУСАМИ</span>
+  <span>© 2026 НАД ПАРУСАМИ</span>
 </footer>
 
 <!-- ═══════════════════════════════════════════════════
@@ -1539,63 +1529,68 @@ if (track) {
 // ── Sound of the sea ──
 (function() {
   const btn = document.getElementById('sound-btn');
-  const ctx = new (window.AudioContext || window.webkitAudioContext)();
+  let ctx = null;
   let gainNode = null;
+  let source = null;
+  let lfo = null;
   let playing = false;
 
   function createOcean() {
-    const bufferSize = ctx.sampleRate * 4;
+    ctx = new (window.AudioContext || window.webkitAudioContext)();
+
+    const bufferSize = ctx.sampleRate * 8;
     const buffer = ctx.createBuffer(2, bufferSize, ctx.sampleRate);
     for (let c = 0; c < 2; c++) {
       const data = buffer.getChannelData(c);
       for (let i = 0; i < bufferSize; i++) data[i] = Math.random() * 2 - 1;
     }
-    const source = ctx.createBufferSource();
+
+    source = ctx.createBufferSource();
     source.buffer = buffer;
     source.loop = true;
 
-    // Low-pass filter — bass rumble of waves
-    const lp = ctx.createBiquadFilter();
-    lp.type = 'lowpass';
-    lp.frequency.value = 400;
-    lp.Q.value = 0.8;
-
-    // High-pass to keep the hiss/surf
     const hp = ctx.createBiquadFilter();
     hp.type = 'highpass';
     hp.frequency.value = 80;
 
-    // Slow LFO for wave rhythm
-    const lfo = ctx.createOscillator();
-    lfo.frequency.value = 0.12;
+    const lp = ctx.createBiquadFilter();
+    lp.type = 'lowpass';
+    lp.frequency.value = 600;
+    lp.Q.value = 0.5;
+
+    lfo = ctx.createOscillator();
+    lfo.frequency.value = 0.1;
     const lfoGain = ctx.createGain();
-    lfoGain.gain.value = 180;
+    lfoGain.gain.value = 200;
     lfo.connect(lfoGain);
     lfoGain.connect(lp.frequency);
     lfo.start();
 
     gainNode = ctx.createGain();
     gainNode.gain.setValueAtTime(0, ctx.currentTime);
-    gainNode.gain.linearRampToValueAtTime(0.18, ctx.currentTime + 3);
+    gainNode.gain.linearRampToValueAtTime(0.22, ctx.currentTime + 3);
 
     source.connect(hp);
     hp.connect(lp);
     lp.connect(gainNode);
     gainNode.connect(ctx.destination);
     source.start();
-    return gainNode;
+  }
+
+  function stopOcean() {
+    if (!ctx) return;
+    gainNode.gain.linearRampToValueAtTime(0, ctx.currentTime + 1.5);
+    setTimeout(() => { source.stop(); lfo.stop(); ctx.close(); ctx = null; }, 1600);
   }
 
   btn.addEventListener('click', () => {
     if (!playing) {
-      if (ctx.state === 'suspended') ctx.resume();
       createOcean();
       btn.classList.add('active');
       btn.title = 'Выключить звук';
       playing = true;
     } else {
-      gainNode.gain.linearRampToValueAtTime(0, ctx.currentTime + 1.5);
-      setTimeout(() => ctx.suspend(), 1600);
+      stopOcean();
       btn.classList.remove('active');
       btn.title = 'Звук моря';
       playing = false;
