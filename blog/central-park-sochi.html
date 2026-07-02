@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Central Park Sochi: кто они и почему весь город идёт за ними — НАД ПАРУСАМИ</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600&family=Inter:wght@300;400;500&family=Josefin+Sans:wght@100;200;300&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --aqua: #7dd4db;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #050a18;
+      color: #fff;
+      overflow-x: hidden;
+    }
+
+    #hero-bg {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      z-index: 1;
+      background: url('../parus2.jpg') center 40% / cover no-repeat;
+      filter: brightness(0.35);
+      pointer-events: none;
+    }
+
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 1.6rem 3.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .nav-logo {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.8);
+      text-decoration: none;
+    }
+
+    .nav-back {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    .nav-back:hover { color: var(--aqua); }
+
+    main {
+      position: relative;
+      z-index: 3;
+      padding-top: 120px;
+      padding-bottom: 8rem;
+    }
+
+    .article-wrap {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    .article-label {
+      font-size: 0.62rem;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      color: var(--aqua);
+      margin-bottom: 1.2rem;
+      display: block;
+    }
+
+    .article-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      font-weight: 500;
+      line-height: 1.2;
+      color: #fff;
+      margin-bottom: 1rem;
+    }
+
+    .article-meta {
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.35);
+      letter-spacing: 0.1em;
+      margin-bottom: 3rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .article-body {
+      font-family: 'Inter', sans-serif;
+      font-size: clamp(0.95rem, 1.5vw, 1.05rem);
+      font-weight: 300;
+      line-height: 1.95;
+      color: rgba(255,255,255,0.75);
+    }
+
+    .article-body p {
+      margin-bottom: 1.6rem;
+    }
+
+    .article-body h2 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.3rem;
+      font-weight: 500;
+      color: #fff;
+      margin: 2.5rem 0 1rem;
+    }
+
+    .article-body .highlight {
+      color: var(--aqua);
+      font-weight: 400;
+    }
+
+    .article-body .lineup {
+      background: rgba(125,212,219,0.06);
+      border-left: 2px solid var(--aqua);
+      padding: 1.2rem 1.5rem;
+      margin: 2rem 0;
+      border-radius: 0 8px 8px 0;
+    }
+
+    .article-body .lineup p {
+      margin-bottom: 0.6rem;
+      font-size: 0.92rem;
+    }
+
+    .article-body .lineup p:last-child { margin-bottom: 0; }
+
+    .article-body .lineup strong {
+      color: #fff;
+      font-weight: 500;
+    }
+
+    .article-footer {
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn-outline {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.68rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      padding: 0.7rem 1.6rem;
+      border: 1px solid rgba(255,255,255,0.25);
+      border-radius: 50px;
+      color: rgba(255,255,255,0.7);
+      text-decoration: none;
+      transition: border-color 0.3s, color 0.3s;
+    }
+    .btn-outline:hover { border-color: var(--aqua); color: var(--aqua); }
+
+    @media (max-width: 768px) {
+      nav { padding: 1.2rem 1.5rem; }
+      .article-wrap { padding: 0 1.5rem; }
+      .article-title { font-size: 1.6rem; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="hero-bg"></div>
+
+<nav>
+  <a href="../index.html" class="nav-logo">Над Парусами</a>
+  <a href="../index.html#blog" class="nav-back">← Журнал</a>
+</nav>
+
+<main>
+  <div class="article-wrap">
+
+    <span class="article-label">Журнал · Команда</span>
+    <h1 class="article-title">Central Park Sochi: кто они и почему весь город идёт за ними</h1>
+    <div class="article-meta">30 Июня 2025 · 4 мин чтения</div>
+
+    <div class="article-body">
+
+      <p>Central Park Sochi — это не просто бар. Это сочинское явление, которое уже несколько лет формирует культуру вечеринок на черноморском побережье. Пока одни заведения открываются и закрываются, эта команда продолжает двигаться, менять локации и каждый раз находить что-то новое.</p>
+
+      <h2>С чего всё началось</h2>
+
+      <p>Всё стартовало в маленьком парке в центре города на ул. Кооперативной. Уютное место с деревьями, хорошей музыкой и баром, который с утра работал как кафе, а вечером превращался в площадку для лучших DJ-сетов города. Никакого пафоса, никаких дресс-кодов — просто правильная атмосфера и люди, которые понимают музыку.</p>
+
+      <p>Именно здесь <span class="highlight">12 июля 2019 года</span> прошла первая вечеринка под брендом Random Org — сейчас одной из главных промо-групп Сочи. Именно на пикниках от Central Park познакомились люди, которые потом запустили несколько независимых проектов. Место было магнитом для всей сочинской электронной тусовки.</p>
+
+      <h2>Кто здесь выступал</h2>
+
+      <p>За годы работы Central Park стал точкой притяжения для электронной музыки в городе. Здесь выступали <span class="highlight">Ishome</span>, <span class="highlight">Pavel Gro</span> из Москвы, <span class="highlight">Michael Dop</span> и десятки других артистов. Формат был четкий: deep house, minimal, progressive — музыка для тех, кто понимает, что слушает. Площадка принимала и местных резидентов, и серьезные московские привозы.</p>
+
+      <p>Промо-группа «Авантюра» проводила здесь значительную часть своих вечеринок. SXODKA заходила сюда в январе 2023 года. Место стало настоящим хабом для всего, что происходит в сочинском андеграунде.</p>
+
+      <h2>Третий поп-ап за полгода</h2>
+
+      <p>Команда Central Park никогда не останавливалась на одном месте и одном формате. Это их третий поп-ап проект за полгода, и каждый раз они находят новую локацию, новую идею, новый вайб. Сначала был Central Park в парке, потом The BOX, теперь крыша с видом на море и тенью парка Фрунзе.</p>
+
+      <p><span class="highlight">«НАД ПАРУСАМИ»</span> — это летний руфтоп на Черноморской, 11к2. Sunset-to-night формат: с 18:00 до 02:00. Без дресс-кода, без лишнего пафоса, с нормальной музыкой и горизонтом прямо перед глазами. Сочетание морского вайба и тени парка в центре города — что-то новое, но при этом очень знакомое.</p>
+
+      <h2>Открытие: 3–5 июля</h2>
+
+      <p>Первый уикенд собрал сильный лайн-ап:</p>
+
+      <div class="lineup">
+        <p><strong>Пятница, 3 июля</strong></p>
+        <p>FUTURA (Москва) — он же Андрей Шушукин, ветеран индустрии и адепт винила с потрясающей коллекцией музыки. Рома Полак — основатель школы серфа «Серфинг по-Черному», пропагандист серфинга на Черном море, с крутым музыкальным прошлым и настоящим.</p>
+        <p><strong>Суббота, 4 июля</strong></p>
+        <p>YULA VOVK — коллекционер винила и яркая представительница танцевальной сцены страны. Её сеты это всегда путешествие. Обещала подготовить особый летний сет специально для НАД ПАРУСАМИ.</p>
+        <p><strong>Воскресенье, 5 июля</strong></p>
+        <p>Underground House &amp; Techno — самый любимый формат команды. Планируют привозы, скоро много анонсов.</p>
+      </div>
+
+      <p>Вход свободный. Потому что Central Park всегда был про сообщество, а не про кассу. Приходите слушать музыку.</p>
+
+      <div class="article-footer">
+        <a href="https://t.me/centralpark_sochi" target="_blank" class="btn-outline">Telegram</a>
+        <a href="https://www.instagram.com/centralpark.sochi" target="_blank" class="btn-outline">Instagram</a>
+        <a href="../index.html#contact" class="btn-outline">Забронировать место</a>
+      </div>
+
+    </div>
+  </div>
+</main>
+
+</body>
+</html>
