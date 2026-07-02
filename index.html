@@ -372,6 +372,27 @@
       color: var(--gold);
       white-space: nowrap;
     }
+    .ev-ticket-btn {
+      margin-left: auto;
+      cursor: pointer;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.62rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      padding: 0.45rem 1.2rem;
+      background: rgba(125, 212, 219, 0.15);
+      border: 1px solid rgba(125, 212, 219, 0.6);
+      color: #7dd4db;
+      border-radius: 50px;
+      white-space: nowrap;
+      box-shadow: 0 0 16px rgba(125, 212, 219, 0.2);
+      transition: background 0.3s, box-shadow 0.3s;
+    }
+    .ev-ticket-btn:hover {
+      background: rgba(125, 212, 219, 0.25);
+      box-shadow: 0 0 24px rgba(125, 212, 219, 0.35);
+    }
 
     /* ── Blog ── */
     .blog-grid {
@@ -599,7 +620,7 @@
     <h1 class="hero-title">НАД<br>ПАРУСАМИ</h1>
     <p class="hero-sub">Мы начинали как парк внутри города.<br>Теперь мы поднимаемся выше — туда, где город открывается морю.</p>
     <div style="margin-top:2rem; opacity:0; animation:fadeUp 1.2s ease 1.4s forwards;">
-      <button class="flat-ticket-widget" data-button-color="#15A6F1" data-open-mode="iframe" data-event-id="2368" style="cursor:pointer; font-family:'Space Grotesk',sans-serif; font-size:0.72rem; font-weight:500; letter-spacing:0.18em; text-transform:uppercase; padding:0.85rem 2.2rem; background:transparent; border:1px solid rgba(255,255,255,0.5); color:#fff; border-radius:50px; transition:border-color 0.3s, background 0.3s;">Купить билет · 12 июля</button>
+      <button class="flat-ticket-widget ev-ticket-btn" data-button-color="#15A6F1" data-open-mode="iframe" data-event-id="2368" style="font-size:0.72rem; padding:0.85rem 2.4rem;">Купить билет · 3 июля</button>
     </div>
     </div>
     <div class="scroll-hint">
@@ -672,34 +693,22 @@
     </div>
     <div class="events-list">
       <div class="event-row">
-        <div class="ev-date"><div class="ev-day">12</div><div class="ev-month">Июл</div></div>
+        <div class="ev-date"><div class="ev-day">03</div><div class="ev-month">Июл</div></div>
         <div class="ev-sep"></div>
-        <div class="ev-info"><h3>Закатный джаз</h3><p>Живая музыка · Открытая терраса · 19:00</p></div>
-        <button class="flat-ticket-widget" data-button-color="#15A6F1" data-open-mode="iframe" data-event-id="2368" style="cursor:pointer; font-family:'Space Grotesk',sans-serif; font-size:0.62rem; font-weight:500; letter-spacing:0.15em; text-transform:uppercase; padding:0.5rem 1.2rem; background:transparent; border:1px solid rgba(255,255,255,0.3); color:rgba(255,255,255,0.8); border-radius:50px; white-space:nowrap; transition:border-color 0.3s;">Билет</button>
+        <div class="ev-info"><h3>FUTURA & Рома Полак</h3><p>Андрей Шушукин · Vinyl · Рома Полак · Серфинг-саунд</p></div>
+        <button class="flat-ticket-widget ev-ticket-btn" data-button-color="#15A6F1" data-open-mode="iframe" data-event-id="2368">Билет</button>
       </div>
       <div class="event-row">
-        <div class="ev-date"><div class="ev-day">19</div><div class="ev-month">Июл</div></div>
+        <div class="ev-date"><div class="ev-day">04</div><div class="ev-month">Июл</div></div>
         <div class="ev-sep"></div>
-        <div class="ev-info"><h3>Белая вечеринка</h3><p>Dress code: белый · DJ set · С 21:00 до рассвета</p></div>
-        <span class="ev-tag">Dress code</span>
+        <div class="ev-info"><h3>YULA VOVK</h3><p>Vinyl · Танцевальная сцена · Летний сет</p></div>
+        <button class="flat-ticket-widget ev-ticket-btn" data-button-color="#15A6F1" data-open-mode="iframe" data-event-id="2368">Билет</button>
       </div>
       <div class="event-row">
-        <div class="ev-date"><div class="ev-day">26</div><div class="ev-month">Июл</div></div>
+        <div class="ev-date"><div class="ev-day">05</div><div class="ev-month">Июл</div></div>
         <div class="ev-sep"></div>
-        <div class="ev-info"><h3>Ночь звездопада</h3><p>Персеиды · Телескоп · Коктейли · 22:00</p></div>
-        <span class="ev-tag">Ограничено</span>
-      </div>
-      <div class="event-row">
-        <div class="ev-date"><div class="ev-day">02</div><div class="ev-month">Авг</div></div>
-        <div class="ev-sep"></div>
-        <div class="ev-info"><h3>Черноморский бранч</h3><p>Авторская кухня · Живая музыка · 11:00–16:00</p></div>
-        <span class="ev-tag">Резерв</span>
-      </div>
-      <div class="event-row">
-        <div class="ev-date"><div class="ev-day">09</div><div class="ev-month">Авг</div></div>
-        <div class="ev-sep"></div>
-        <div class="ev-info"><h3>Восход на воде</h3><p>Прогулка на яхте · Встреча рассвета · 04:30</p></div>
-        <span class="ev-tag">Яхт-клуб</span>
+        <div class="ev-info"><h3>Underground House & Techno</h3><p>Наш любимый формат · Анонсы скоро</p></div>
+        <span class="ev-tag">Скоро</span>
       </div>
     </div>
   </div>
