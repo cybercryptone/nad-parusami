@@ -186,11 +186,14 @@
       100% { transform: skewX(0deg) scaleX(1);     letter-spacing: 0.12em; }
     }
     @keyframes shimmer {
-      0%   { background-position: 0% 30%; }
-      25%  { background-position: 60% 60%; }
-      50%  { background-position: 120% 40%; }
-      75%  { background-position: 60% 70%; }
-      100% { background-position: 0% 30%; }
+      0%   { background-position: 20% 30%; }
+      12%  { background-position: 75% 55%; }
+      27%  { background-position: 35% 85%; }
+      41%  { background-position: 80% 15%; }
+      56%  { background-position: 10% 70%; }
+      68%  { background-position: 65% 40%; }
+      83%  { background-position: 45% 90%; }
+      100% { background-position: 20% 30%; }
     }
     .hero-title {
       font-family: 'Josefin Sans', sans-serif;
@@ -709,6 +712,36 @@
       100% { transform: translateY(-20vh) translateX(40px); opacity: 0; }
     }
 
+    /* ── Sound button ── */
+    #sound-btn {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      z-index: 200;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: 1px solid rgba(125,212,219,0.4);
+      background: rgba(0,0,0,0.35);
+      backdrop-filter: blur(12px);
+      color: rgba(255,255,255,0.7);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: border-color 0.3s, color 0.3s, background 0.3s;
+      font-size: 1.1rem;
+    }
+    #sound-btn:hover {
+      border-color: rgba(125,212,219,0.8);
+      color: #7dd4db;
+      background: rgba(0,0,0,0.5);
+    }
+    #sound-btn.active {
+      border-color: rgba(125,212,219,0.7);
+      color: #7dd4db;
+    }
+
     /* ── Responsive ── */
     @media (max-width: 768px) {
       nav { padding: 1.2rem 1.5rem; }
@@ -748,6 +781,7 @@
 <canvas id="scene-canvas"></canvas>
 <canvas id="grain"></canvas>
 <div id="hero-bg"></div>
+<button id="sound-btn" title="Звук моря">🌊</button>
 <div class="scene-dim"></div>
 
 <!-- ═══════════════════════════════════════════════════
@@ -1501,6 +1535,73 @@ if (track) {
     track.scrollLeft = scrollLeft - (e.pageX - track.offsetLeft - startX) * 1.5;
   });
 }
+
+// ── Sound of the sea ──
+(function() {
+  const btn = document.getElementById('sound-btn');
+  const ctx = new (window.AudioContext || window.webkitAudioContext)();
+  let gainNode = null;
+  let playing = false;
+
+  function createOcean() {
+    const bufferSize = ctx.sampleRate * 4;
+    const buffer = ctx.createBuffer(2, bufferSize, ctx.sampleRate);
+    for (let c = 0; c < 2; c++) {
+      const data = buffer.getChannelData(c);
+      for (let i = 0; i < bufferSize; i++) data[i] = Math.random() * 2 - 1;
+    }
+    const source = ctx.createBufferSource();
+    source.buffer = buffer;
+    source.loop = true;
+
+    // Low-pass filter — bass rumble of waves
+    const lp = ctx.createBiquadFilter();
+    lp.type = 'lowpass';
+    lp.frequency.value = 400;
+    lp.Q.value = 0.8;
+
+    // High-pass to keep the hiss/surf
+    const hp = ctx.createBiquadFilter();
+    hp.type = 'highpass';
+    hp.frequency.value = 80;
+
+    // Slow LFO for wave rhythm
+    const lfo = ctx.createOscillator();
+    lfo.frequency.value = 0.12;
+    const lfoGain = ctx.createGain();
+    lfoGain.gain.value = 180;
+    lfo.connect(lfoGain);
+    lfoGain.connect(lp.frequency);
+    lfo.start();
+
+    gainNode = ctx.createGain();
+    gainNode.gain.setValueAtTime(0, ctx.currentTime);
+    gainNode.gain.linearRampToValueAtTime(0.18, ctx.currentTime + 3);
+
+    source.connect(hp);
+    hp.connect(lp);
+    lp.connect(gainNode);
+    gainNode.connect(ctx.destination);
+    source.start();
+    return gainNode;
+  }
+
+  btn.addEventListener('click', () => {
+    if (!playing) {
+      if (ctx.state === 'suspended') ctx.resume();
+      createOcean();
+      btn.classList.add('active');
+      btn.title = 'Выключить звук';
+      playing = true;
+    } else {
+      gainNode.gain.linearRampToValueAtTime(0, ctx.currentTime + 1.5);
+      setTimeout(() => ctx.suspend(), 1600);
+      btn.classList.remove('active');
+      btn.title = 'Звук моря';
+      playing = false;
+    }
+  });
+})();
 
 const heroBgEl = document.getElementById('hero-bg');
 window.addEventListener('scroll', () => {
