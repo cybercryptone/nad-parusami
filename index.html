@@ -598,6 +598,9 @@
     <p class="hero-eyebrow">Сочи · Черноморское побережье · Открыто</p>
     <h1 class="hero-title">НАД<br>ПАРУСАМИ</h1>
     <p class="hero-sub">Мы начинали как парк внутри города.<br>Теперь мы поднимаемся выше — туда, где город открывается морю.</p>
+    <div style="margin-top:2rem; opacity:0; animation:fadeUp 1.2s ease 1.4s forwards;">
+      <button class="flat-ticket-widget" data-button-color="#15A6F1" data-open-mode="iframe" data-event-id="2368" style="cursor:pointer; font-family:'Space Grotesk',sans-serif; font-size:0.72rem; font-weight:500; letter-spacing:0.18em; text-transform:uppercase; padding:0.85rem 2.2rem; background:transparent; border:1px solid rgba(255,255,255,0.5); color:#fff; border-radius:50px; transition:border-color 0.3s, background 0.3s;">Купить билет · 12 июля</button>
+    </div>
     </div>
     <div class="scroll-hint">
       <span>Открыть</span>
@@ -672,7 +675,7 @@
         <div class="ev-date"><div class="ev-day">12</div><div class="ev-month">Июл</div></div>
         <div class="ev-sep"></div>
         <div class="ev-info"><h3>Закатный джаз</h3><p>Живая музыка · Открытая терраса · 19:00</p></div>
-        <span class="ev-tag">Вход свободный</span>
+        <button class="flat-ticket-widget" data-button-color="#15A6F1" data-open-mode="iframe" data-event-id="2368" style="cursor:pointer; font-family:'Space Grotesk',sans-serif; font-size:0.62rem; font-weight:500; letter-spacing:0.15em; text-transform:uppercase; padding:0.5rem 1.2rem; background:transparent; border:1px solid rgba(255,255,255,0.3); color:rgba(255,255,255,0.8); border-radius:50px; white-space:nowrap; transition:border-color 0.3s;">Билет</button>
       </div>
       <div class="event-row">
         <div class="ev-date"><div class="ev-day">19</div><div class="ev-month">Июл</div></div>
@@ -1350,5 +1353,6 @@ document.querySelectorAll('.blog-card, .event-row').forEach((el, i) => {
   setInterval(create, 600);
 })();
 </script>
+<script src="https://flat.audio/js/tickets/widget.js"></script>
 </body>
 </html>
