@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Первый лайн-ап НАД ПАРУСАМИ — 3–5 июля</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600&family=Inter:wght@300;400;500&family=Josefin+Sans:wght@100;200;300&display=swap" rel="stylesheet">
+  <style>
+    :root { --aqua: #7dd4db; }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #050a18;
+      color: #fff;
+      overflow-x: hidden;
+    }
+
+    #hero-bg {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      z-index: 1;
+      background: url('../parus2.jpg') center 40% / cover no-repeat;
+      filter: brightness(0.35);
+      pointer-events: none;
+    }
+
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 1.6rem 3.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .nav-logo {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.8);
+      text-decoration: none;
+    }
+
+    .nav-back {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    .nav-back:hover { color: var(--aqua); }
+
+    main {
+      position: relative;
+      z-index: 3;
+      padding-top: 120px;
+      padding-bottom: 8rem;
+    }
+
+    .article-wrap {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    .article-label {
+      font-size: 0.62rem;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      color: var(--aqua);
+      margin-bottom: 1.2rem;
+      display: block;
+    }
+
+    .article-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      font-weight: 500;
+      line-height: 1.2;
+      color: #fff;
+      margin-bottom: 1rem;
+    }
+
+    .article-meta {
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.35);
+      letter-spacing: 0.1em;
+      margin-bottom: 3rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .article-body {
+      font-size: clamp(0.95rem, 1.5vw, 1.05rem);
+      font-weight: 300;
+      line-height: 1.95;
+      color: rgba(255,255,255,0.75);
+    }
+
+    .article-body p { margin-bottom: 1.6rem; }
+
+    .article-body h2 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.3rem;
+      font-weight: 500;
+      color: #fff;
+      margin: 2.5rem 0 1rem;
+    }
+
+    .article-body .highlight { color: var(--aqua); font-weight: 400; }
+
+    .day-block {
+      border-left: 2px solid var(--aqua);
+      background: rgba(125,212,219,0.05);
+      padding: 1.4rem 1.6rem;
+      margin: 1.2rem 0;
+      border-radius: 0 10px 10px 0;
+    }
+
+    .day-block .day-label {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--aqua);
+      margin-bottom: 0.6rem;
+    }
+
+    .day-block .artist {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: #fff;
+      margin-bottom: 0.4rem;
+    }
+
+    .day-block p {
+      font-size: 0.88rem;
+      color: rgba(255,255,255,0.55);
+      margin-bottom: 0;
+      line-height: 1.6;
+    }
+
+    .info-row {
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+      margin: 2.5rem 0;
+      padding: 1.4rem 1.6rem;
+      background: rgba(255,255,255,0.04);
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.07);
+    }
+
+    .info-item {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+
+    .info-item .info-label {
+      font-size: 0.58rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.3);
+    }
+
+    .info-item .info-val {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.95rem;
+      color: #fff;
+    }
+
+    .article-footer {
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn-outline {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.68rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      padding: 0.7rem 1.6rem;
+      border: 1px solid rgba(255,255,255,0.25);
+      border-radius: 50px;
+      color: rgba(255,255,255,0.7);
+      text-decoration: none;
+      transition: border-color 0.3s, color 0.3s;
+    }
+    .btn-outline:hover { border-color: var(--aqua); color: var(--aqua); }
+
+    .btn-ticket {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      padding: 0.7rem 1.6rem;
+      background: rgba(125,212,219,0.15);
+      border: 1px solid rgba(125,212,219,0.6);
+      border-radius: 50px;
+      color: #000;
+      cursor: pointer;
+      box-shadow: 0 0 16px rgba(125,212,219,0.2);
+      transition: background 0.3s, box-shadow 0.3s;
+    }
+    .btn-ticket:hover { background: rgba(125,212,219,0.28); box-shadow: 0 0 24px rgba(125,212,219,0.35); }
+
+    @media (max-width: 768px) {
+      nav { padding: 1.2rem 1.5rem; }
+      .article-wrap { padding: 0 1.5rem; }
+      .article-title { font-size: 1.6rem; }
+      .info-row { gap: 1.2rem; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="hero-bg"></div>
+
+<nav>
+  <a href="../index.html" class="nav-logo">Над Парусами</a>
+  <a href="../index.html#blog" class="nav-back">← Журнал</a>
+</nav>
+
+<main>
+  <div class="article-wrap">
+
+    <span class="article-label">Анонс · Открытие</span>
+    <h1 class="article-title">Первый лайн-ап НАД ПАРУСАМИ: 3–5 июля</h1>
+    <div class="article-meta">3 Июля 2025 · Вход свободный · Старт в 18:00</div>
+
+    <div class="article-body">
+
+      <p>Это третий поп-ап проект от Central Park Sochi за полгода, и, кажется, самый крутой. Бог любит троицу. Руфтоп с видом на море плюс тенистая сторона парка Фрунзе — место, где морской вайб встречается с энергией города. Ностальгия по The BOX и Central Park соединяется с чем-то совсем новым.</p>
+
+      <p>«Крыша НАД ПАРУСАМИ» открывается 3 июля тремя вечерами живой музыки. Вход свободный. Старт в 18:00. Каждый день своя история.</p>
+
+      <div class="info-row">
+        <div class="info-item">
+          <span class="info-label">Даты</span>
+          <span class="info-val">3, 4, 5 июля</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">Начало</span>
+          <span class="info-val">18:00</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">Вход</span>
+          <span class="info-val">Свободный</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">Адрес</span>
+          <span class="info-val">Черноморская 11, к2</span>
+        </div>
+      </div>
+
+      <h2>Лайн-ап</h2>
+
+      <div class="day-block">
+        <div class="day-label">Пятница · 3 июля</div>
+        <div class="artist">FUTURA (Москва)</div>
+        <p>Он же Андрей Шушукин — ветеран индустрии и адепт винила. Потрясающая коллекция музыки, собранная годами. Когда он открывает чемодан с пластинками, в зале сразу что-то меняется.</p>
+      </div>
+
+      <div class="day-block">
+        <div class="day-label">Пятница · 3 июля</div>
+        <div class="artist">Рома Полак</div>
+        <p>Пропагандист серфинга на Черном море, основатель школы серфа «Серфинг по-Черному». Крутое музыкальное прошлое и настоящее — его сет будет именно таким, каким и должен быть вечер у моря.</p>
+      </div>
+
+      <div class="day-block">
+        <div class="day-label">Суббота · 4 июля</div>
+        <div class="artist">YULA VOVK</div>
+        <p>Коллекционер винила и яркая представительница танцевальной сцены страны. Её сеты это всегда путешествие — обещала подготовить особый летний сет специально для НАД ПАРУСАМИ.</p>
+      </div>
+
+      <div class="day-block">
+        <div class="day-label">Воскресенье · 5 июля</div>
+        <div class="artist">Underground House &amp; Techno</div>
+        <p>Самый любимый формат команды. Будут двигать его с особым рвением. Планируются привозы — скоро много анонсов. Следите за каналом.</p>
+      </div>
+
+      <p style="margin-top:2rem;">Приходите слушать музыку. Бронь столиков: <a href="tel:+79024072121" style="color:var(--aqua); text-decoration:none;">+7 (902) 407-21-21</a></p>
+
+      <div class="article-footer">
+        <button class="flat-ticket-widget btn-ticket" data-button-color="#7dd4db" data-open-mode="iframe" data-event-id="2368">Купить билет</button>
+        <a href="https://t.me/centralpark_sochi" target="_blank" class="btn-outline">Telegram</a>
+        <a href="https://www.instagram.com/centralpark.sochi" target="_blank" class="btn-outline">Instagram</a>
+      </div>
+
+    </div>
+  </div>
+</main>
+
+<script src="https://flat.audio/js/tickets/widget.js"></script>
+<script>
+  (function() {
+    function apply() {
+      document.querySelectorAll('.flat-ticket-widget').forEach(el => {
+        el.style.setProperty('color', '#000', 'important');
+      });
+    }
+    apply();
+    new MutationObserver(apply).observe(document.body, { childList: true, subtree: true });
+  })();
+</script>
+
+</body>
+</html>
