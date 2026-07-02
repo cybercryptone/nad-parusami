@@ -1363,5 +1363,16 @@ document.querySelectorAll('.blog-card, .event-row').forEach((el, i) => {
 })();
 </script>
 <script src="https://flat.audio/js/tickets/widget.js"></script>
+<script>
+  (function patchTicketColor() {
+    function apply() {
+      document.querySelectorAll('.flat-ticket-widget, [class*="flat-ticket"]').forEach(el => {
+        el.style.setProperty('color', '#000', 'important');
+      });
+    }
+    apply();
+    new MutationObserver(apply).observe(document.body, { childList: true, subtree: true });
+  })();
+</script>
 </body>
 </html>
