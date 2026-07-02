@@ -574,18 +574,31 @@
 
     /* ── Footer ── */
     footer {
-      padding: 3rem 5%;
-      border-top: 1px solid rgba(255,255,255,0.07);
+      padding: 2.5rem 5%;
+      border-top: 1px solid rgba(255,255,255,0.06);
       display: flex;
-      justify-content: space-between;
+      flex-direction: column;
       align-items: center;
-      font-size: 0.75rem;
-      color: rgba(255,255,255,0.25);
-      flex-wrap: wrap;
-      gap: 1rem;
+      gap: 1.2rem;
+      font-size: 0.68rem;
+      letter-spacing: 0.12em;
+      color: rgba(255,255,255,0.2);
+      text-align: center;
     }
 
-    footer a { color: rgba(255,255,255,0.4); text-decoration: none; }
+    .footer-links {
+      display: flex;
+      gap: 2rem;
+    }
+
+    footer a {
+      color: rgba(255,255,255,0.3);
+      text-decoration: none;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      font-size: 0.62rem;
+      transition: color 0.3s;
+    }
     footer a:hover { color: rgba(255,255,255,0.7); }
 
     /* ── Particles container ── */
@@ -841,13 +854,13 @@
 
 <!-- FOOTER -->
 <footer>
-  <span>© 2026 НАД ПАРУСАМИ · Central Park Sochi</span>
-  <span>г. Сочи, ул. Черноморская 11 к2</span>
-  <span>
-    <a href="https://t.me/centralpark_sochi" target="_blank">Telegram</a> ·
-    <a href="https://www.instagram.com/centralpark.sochi" target="_blank">Instagram</a> ·
+  <div class="footer-links">
+    <a href="https://t.me/centralpark_sochi" target="_blank">Telegram</a>
+    <a href="https://www.instagram.com/centralpark.sochi" target="_blank">Instagram</a>
     <a href="https://play.flat.audio/artist-page/10406" target="_blank">Music</a>
-  </span>
+  </div>
+  <span>г. Сочи · Черноморская 11 к2</span>
+  <span>© 2025 НАД ПАРУСАМИ</span>
 </footer>
 
 <!-- ═══════════════════════════════════════════════════
