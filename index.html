@@ -178,37 +178,42 @@
     }
 
     @keyframes windSway {
-      0%   { transform: skewX(0deg) scaleX(1);    letter-spacing: 0.12em; }
-      18%  { transform: skewX(-0.6deg) scaleX(1.004); letter-spacing: 0.135em; }
-      38%  { transform: skewX(0.4deg) scaleX(0.998); letter-spacing: 0.118em; }
-      55%  { transform: skewX(-0.3deg) scaleX(1.002); letter-spacing: 0.128em; }
-      72%  { transform: skewX(0.2deg) scaleX(1);  letter-spacing: 0.122em; }
-      100% { transform: skewX(0deg) scaleX(1);    letter-spacing: 0.12em; }
+      0%   { transform: skewX(0deg) scaleX(1);     letter-spacing: 0.12em; }
+      18%  { transform: skewX(-0.25deg) scaleX(1.002); letter-spacing: 0.124em; }
+      38%  { transform: skewX(0.15deg) scaleX(0.999); letter-spacing: 0.119em; }
+      55%  { transform: skewX(-0.12deg) scaleX(1.001); letter-spacing: 0.122em; }
+      72%  { transform: skewX(0.08deg) scaleX(1);  letter-spacing: 0.121em; }
+      100% { transform: skewX(0deg) scaleX(1);     letter-spacing: 0.12em; }
     }
     @keyframes shimmer {
-      0%   { background-position: 200% center; }
-      100% { background-position: -200% center; }
+      0%   { background-position: 0% 30%; }
+      25%  { background-position: 60% 60%; }
+      50%  { background-position: 120% 40%; }
+      75%  { background-position: 60% 70%; }
+      100% { background-position: 0% 30%; }
     }
     .hero-title {
       font-family: 'Josefin Sans', sans-serif;
       font-size: clamp(3.2rem, 9vw, 8rem);
-      font-weight: 300;
       font-weight: 600;
       letter-spacing: 0.12em;
       line-height: 1.15;
-      background: linear-gradient(
-        105deg,
-        rgba(255,255,255,0.55) 0%,
-        rgba(255,255,255,0.97) 20%,
-        rgba(200,235,255,1)    30%,
-        rgba(125,212,219,0.9)  40%,
-        rgba(255,255,255,0.97) 52%,
-        rgba(210,240,255,0.7)  62%,
-        rgba(255,255,255,0.55) 78%,
-        rgba(180,225,235,0.85) 88%,
-        rgba(255,255,255,0.97) 100%
+      background: radial-gradient(
+        ellipse 180% 120% at 20% 50%,
+        #0a2a4a 0%,
+        #0d3d5c 12%,
+        #1a6080 22%,
+        #7dd4db 34%,
+        #c8eef5 42%,
+        #ffffff 48%,
+        #b0dde8 54%,
+        #3a8fa8 63%,
+        #0d4060 74%,
+        #091e38 84%,
+        #7dd4db 92%,
+        #ffffff 100%
       );
-      background-size: 300% auto;
+      background-size: 400% 400%;
       -webkit-background-clip: text;
       background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -216,7 +221,7 @@
       opacity: 0;
       animation: fadeUp 1.2s ease 0.7s forwards,
                  windSway 6s ease-in-out 2s infinite,
-                 shimmer 8s linear 2s infinite;
+                 shimmer 14s ease-in-out 2s infinite;
       display: inline-block;
       transform-origin: left center;
     }
