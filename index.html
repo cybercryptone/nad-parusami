@@ -267,7 +267,8 @@
     }
 
     .section-inner {
-      max-width: 560px;
+      max-width: 680px;
+      width: 50%;
       opacity: 0;
       transform: translateY(50px);
       transition: opacity 0.9s ease, transform 0.9s ease;
@@ -281,7 +282,7 @@
     .section--left  { justify-content: flex-start; }
     .section--right { justify-content: flex-end; }
     .section--center { justify-content: center; text-align: center; }
-    .section--center .section-inner { max-width: 680px; }
+    .section--center .section-inner { max-width: 780px; width: 70%; }
     .section--center .divider { margin: 1.2rem auto; }
 
     /* Glass card */
@@ -290,7 +291,7 @@
       backdrop-filter: blur(28px);
       border: 1px solid rgba(255,255,255,0.25);
       border-radius: 24px;
-      padding: 3rem 2.8rem;
+      padding: 3.5rem 3.5rem;
       color: rgba(255,255,255,0.95);
     }
 
@@ -636,9 +637,11 @@
     @media (max-width: 768px) {
       nav { padding: 1.2rem 1.5rem; }
       .nav-links { display: none; }
-      .section { padding: 6rem 1.5rem; }
-      .content-block { padding: 5rem 1.5rem; }
+      .section { padding: 3rem 1.5rem; }
+      .content-block { padding: 3rem 1.5rem; }
       .glass { padding: 2rem 1.5rem; }
+      .section-inner { width: 100%; max-width: 100%; }
+      .section--center .section-inner { width: 100%; }
       .ev-tag { display: none; }
       footer { flex-direction: column; text-align: center; }
 
