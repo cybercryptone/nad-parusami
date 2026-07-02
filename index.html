@@ -468,6 +468,9 @@
       overflow: hidden;
       transition: transform 0.4s ease, background 0.4s ease, border-color 0.4s;
       cursor: pointer;
+      display: block;
+      color: inherit;
+      text-decoration: none;
     }
 
     .blog-card:hover {
@@ -779,7 +782,7 @@
       <h2 class="section-title" style="font-size:clamp(2rem,4vw,3.5rem);">Записки<br>над морем</h2>
     </div>
     <div class="blog-grid">
-      <article class="blog-card" style="border-color: rgba(125,212,219,0.25);">
+      <a href="blog/perviy-laynap.html" class="blog-card" style="border-color: rgba(125,212,219,0.25);">
         <div class="blog-img blog-img-1" style="display:flex; flex-direction:column; align-items:center; justify-content:center; gap:0.4rem; font-size:0.6rem; letter-spacing:0.2em; color:#7dd4db; text-transform:uppercase;">
           <span style="font-size:1.8rem;">🎶</span>
           <span>03–05 Июля</span>
@@ -791,27 +794,27 @@
           <div style="margin-top:1rem; font-size:0.72rem; color:rgba(255,255,255,0.4); letter-spacing:0.05em; line-height:1.8;">
             Чёрноморская 11 к2 · Бронь: +7 (902) 407-21-21
           </div>
-          <a href="blog/perviy-laynap.html" class="blog-link">Читать</a>
+          <span class="blog-link">Читать</span>
         </div>
-      </article>
-      <article class="blog-card">
+      </a>
+      <a href="blog/central-park-sochi.html" class="blog-card">
         <div class="blog-img blog-img-2">🌊</div>
         <div class="blog-body">
           <div class="blog-date">30 Июня 2025</div>
           <h3 class="blog-title">Central Park Sochi: кто они и почему весь город идёт за ними</h3>
-          <p class="blog-excerpt">Пикники на Кооперативной, первая вечеринка Random Org, привозы из Москвы и уже третий поп-ап за полгода. Рассказываем историю команды, которая делает культуру в Сочи.</p>
-          <a href="blog/central-park-sochi.html" class="blog-link">Читать</a>
+          <p class="blog-excerpt">Пикники на Кооперативной, привозы из Москвы и уже третий поп-ап за полгода. Рассказываем историю команды, которая делает культуру в Сочи.</p>
+          <span class="blog-link">Читать</span>
         </div>
-      </article>
-      <article class="blog-card">
+      </a>
+      <a href="#" class="blog-card">
         <div class="blog-img blog-img-3">🍹</div>
         <div class="blog-body">
           <div class="blog-date">20 Мая 2026</div>
           <h3 class="blog-title">Рецепт «Чёрного шторма»</h3>
           <p class="blog-excerpt">Наш бармен Алекс рассказывает о создании фирменного коктейля, вдохновлённого черноморскими штормами и мистикой подводного мира.</p>
-          <a href="#" class="blog-link">Читать</a>
+          <span class="blog-link">Читать</span>
         </div>
-      </article>
+      </a>
     </div>
   </div>
 
