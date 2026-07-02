@@ -185,16 +185,37 @@
       72%  { transform: skewX(0.2deg) scaleX(1);  letter-spacing: 0.122em; }
       100% { transform: skewX(0deg) scaleX(1);    letter-spacing: 0.12em; }
     }
+    @keyframes shimmer {
+      0%   { background-position: 200% center; }
+      100% { background-position: -200% center; }
+    }
     .hero-title {
       font-family: 'Josefin Sans', sans-serif;
       font-size: clamp(3.2rem, 9vw, 8rem);
       font-weight: 100;
       letter-spacing: 0.12em;
       line-height: 1.15;
-      color: rgba(255,255,255,0.95);
-      text-shadow: 0 2px 40px rgba(0,20,60,0.15);
+      background: linear-gradient(
+        105deg,
+        rgba(255,255,255,0.55) 0%,
+        rgba(255,255,255,0.97) 20%,
+        rgba(200,235,255,1)    30%,
+        rgba(125,212,219,0.9)  40%,
+        rgba(255,255,255,0.97) 52%,
+        rgba(210,240,255,0.7)  62%,
+        rgba(255,255,255,0.55) 78%,
+        rgba(180,225,235,0.85) 88%,
+        rgba(255,255,255,0.97) 100%
+      );
+      background-size: 300% auto;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: none;
       opacity: 0;
-      animation: fadeUp 1.2s ease 0.7s forwards, windSway 6s ease-in-out 2s infinite;
+      animation: fadeUp 1.2s ease 0.7s forwards,
+                 windSway 6s ease-in-out 2s infinite,
+                 shimmer 8s linear 2s infinite;
       display: inline-block;
       transform-origin: left center;
     }
@@ -800,14 +821,22 @@
   <!-- GALLERY -->
   <div class="gallery-block">
     <div class="gallery-track">
+      <!-- море -->
       <div class="gallery-item" style="background-image:url('https://images.unsplash.com/photo-1505118380757-91f5f5632de0?w=900&q=80')"></div>
+      <!-- абстракция — тёмные волны -->
+      <div class="gallery-item" style="background-image:url('https://images.unsplash.com/photo-1519681393784-d120267933ba?w=900&q=80')"></div>
+      <!-- море на закате -->
       <div class="gallery-item" style="background-image:url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=900&q=80')"></div>
-      <div class="gallery-item" style="background-image:url('https://images.unsplash.com/photo-1519046904884-53103b34b206?w=900&q=80')"></div>
-      <div class="gallery-item" style="background-image:url('https://images.unsplash.com/photo-1490730141103-6cac27aaab94?w=900&q=80')"></div>
-      <div class="gallery-item" style="background-image:url('https://images.unsplash.com/photo-1476673160081-cf065607f449?w=900&q=80')"></div>
-      <div class="gallery-item" style="background-image:url('https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=900&q=80')"></div>
-      <div class="gallery-item" style="background-image:url('https://images.unsplash.com/photo-1501854140801-50d01698950b?w=900&q=80')"></div>
+      <!-- абстракция — жидкий металл -->
+      <div class="gallery-item" style="background-image:url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=900&q=80')"></div>
+      <!-- море крупный план -->
       <div class="gallery-item" style="background-image:url('https://images.unsplash.com/photo-1439405326854-014607f694d7?w=900&q=80')"></div>
+      <!-- абстракция — дым -->
+      <div class="gallery-item" style="background-image:url('https://images.unsplash.com/photo-1541701494587-cb58502866ab?w=900&q=80')"></div>
+      <!-- море горизонт -->
+      <div class="gallery-item" style="background-image:url('https://images.unsplash.com/photo-1490730141103-6cac27aaab94?w=900&q=80')"></div>
+      <!-- абстракция — текстура воды -->
+      <div class="gallery-item" style="background-image:url('https://images.unsplash.com/photo-1550159930-40066082a4fc?w=900&q=80')"></div>
     </div>
   </div>
 
