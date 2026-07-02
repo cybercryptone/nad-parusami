@@ -1,0 +1,14 @@
+{
+  "name": "НАД ПАРУСАМИ",
+  "short_name": "НАД ПАРУСАМИ",
+  "description": "Руфтоп с видом на Черное море. Central Park Sochi.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#050a18",
+  "theme_color": "#050a18",
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml" }
+  ]
+}
