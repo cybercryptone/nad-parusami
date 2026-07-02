@@ -177,6 +177,14 @@
       animation: fadeUp 1s ease 0.4s forwards;
     }
 
+    @keyframes windSway {
+      0%   { transform: skewX(0deg) scaleX(1);    letter-spacing: 0.12em; }
+      18%  { transform: skewX(-0.6deg) scaleX(1.004); letter-spacing: 0.135em; }
+      38%  { transform: skewX(0.4deg) scaleX(0.998); letter-spacing: 0.118em; }
+      55%  { transform: skewX(-0.3deg) scaleX(1.002); letter-spacing: 0.128em; }
+      72%  { transform: skewX(0.2deg) scaleX(1);  letter-spacing: 0.122em; }
+      100% { transform: skewX(0deg) scaleX(1);    letter-spacing: 0.12em; }
+    }
     .hero-title {
       font-family: 'Josefin Sans', sans-serif;
       font-size: clamp(3.2rem, 9vw, 8rem);
@@ -186,7 +194,9 @@
       color: rgba(255,255,255,0.95);
       text-shadow: 0 2px 40px rgba(0,20,60,0.15);
       opacity: 0;
-      animation: fadeUp 1.2s ease 0.7s forwards;
+      animation: fadeUp 1.2s ease 0.7s forwards, windSway 6s ease-in-out 2s infinite;
+      display: inline-block;
+      transform-origin: left center;
     }
     .hero-title .spark {
       color: #e8b84b;
@@ -1418,13 +1428,38 @@ window.addEventListener('scroll', () => {
 // ────────────────────────────────────────────────────
 // HERO BG COLOR SHIFT ON SCROLL
 // ────────────────────────────────────────────────────
-// Gallery drag scroll
+// Gallery auto-scroll + drag
 const track = document.querySelector('.gallery-track');
 if (track) {
+  // Duplicate items for seamless infinite loop
+  const items = Array.from(track.children);
+  items.forEach(item => track.appendChild(item.cloneNode(true)));
+
+  let paused = false;
+  let rafId;
+
+  function autoScroll() {
+    if (!paused) {
+      track.scrollLeft += 0.6;
+      // Reset when first half is scrolled through
+      if (track.scrollLeft >= track.scrollWidth / 2) {
+        track.scrollLeft = 0;
+      }
+    }
+    rafId = requestAnimationFrame(autoScroll);
+  }
+  rafId = requestAnimationFrame(autoScroll);
+
+  // Pause on hover / touch
+  track.addEventListener('mouseenter', () => paused = true);
+  track.addEventListener('mouseleave', () => paused = false);
+  track.addEventListener('touchstart', () => paused = true, { passive: true });
+  track.addEventListener('touchend', () => setTimeout(() => paused = false, 1000), { passive: true });
+
+  // Drag to scroll
   let isDown = false, startX, scrollLeft;
-  track.addEventListener('mousedown', e => { isDown = true; startX = e.pageX - track.offsetLeft; scrollLeft = track.scrollLeft; });
-  track.addEventListener('mouseleave', () => isDown = false);
-  track.addEventListener('mouseup', () => isDown = false);
+  track.addEventListener('mousedown', e => { isDown = true; paused = true; startX = e.pageX - track.offsetLeft; scrollLeft = track.scrollLeft; });
+  track.addEventListener('mouseup', () => { isDown = false; paused = false; });
   track.addEventListener('mousemove', e => {
     if (!isDown) return;
     e.preventDefault();
