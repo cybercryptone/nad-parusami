@@ -126,13 +126,34 @@
     }
 
     .nav-logo {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 1.15rem;
-      font-weight: 400;
-      letter-spacing: 0.18em;
-      color: #fff;
       text-decoration: none;
-      text-transform: uppercase;
+      position: relative;
+      display: block;
+      height: 56px;
+      width: 160px;
+    }
+    @keyframes logoA {
+      0%, 38%  { opacity: 1; }
+      48%, 90% { opacity: 0; }
+      100%     { opacity: 1; }
+    }
+    @keyframes logoB {
+      0%, 38%  { opacity: 0; }
+      48%, 90% { opacity: 1; }
+      100%     { opacity: 0; }
+    }
+    .nav-logo img {
+      position: absolute;
+      top: 0; left: 0;
+      height: 56px;
+      width: auto;
+    }
+    .nav-logo img.logo-a {
+      filter: invert(1);
+      animation: logoA 8s ease-in-out infinite;
+    }
+    .nav-logo img.logo-b {
+      animation: logoB 8s ease-in-out infinite;
     }
 
     .nav-links {
@@ -766,7 +787,7 @@
       .ev-tag { display: none; }
       footer { flex-direction: column; text-align: center; }
 
-      nav { background: rgba(5,10,24,0.92); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+      nav { background: transparent; backdrop-filter: none; -webkit-backdrop-filter: none; }
       .hero-center { position: relative; top: auto; padding: 0 1.5rem; margin-top: 0; }
       .hero { justify-content: center; padding: 0 0 5rem; }
       .hero-eyebrow {
@@ -818,7 +839,10 @@
      NAV
 ════════════════════════════════════════════════════ -->
 <nav id="main-nav">
-  <a href="#hero" class="nav-logo">Над Парусами</a>
+  <a href="#hero" class="nav-logo">
+    <img class="logo-a" src="logo-cp.png" alt="Central Park Сочи">
+    <img class="logo-b" src="logo-np.png" alt="НАД ПАРУСАМИ">
+  </a>
   <ul class="nav-links">
     <li><a href="#about">О нас</a></li>
     <li><a href="#events">Афиша</a></li>
