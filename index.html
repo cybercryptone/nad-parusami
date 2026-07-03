@@ -131,6 +131,7 @@
       display: block;
       height: 72px;
       width: 200px;
+      transition: opacity 0.4s ease;
     }
     @keyframes logoA {
       0%, 38%  { opacity: 1; }
@@ -1672,8 +1673,13 @@ window.addEventListener('scroll', () => {
 // NAV
 // ────────────────────────────────────────────────────
 const nav = document.getElementById('main-nav');
+const navLogo = nav.querySelector('.nav-logo');
 window.addEventListener('scroll', () => {
   nav.classList.toggle('scrolled', window.scrollY > 60);
+  if (window.innerWidth <= 768) {
+    navLogo.style.opacity = window.scrollY > 80 ? '0' : '1';
+    navLogo.style.pointerEvents = window.scrollY > 80 ? 'none' : '';
+  }
 }, { passive: true });
 
 // ────────────────────────────────────────────────────
