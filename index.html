@@ -157,6 +157,7 @@
       animation: logoB 8s ease-in-out infinite;
     }
 
+    .nav-phone-mobile { display: none; }
     .nav-links {
       display: flex;
       gap: 2.5rem;
@@ -796,6 +797,7 @@
 
       nav, nav.scrolled { background: transparent !important; backdrop-filter: none !important; -webkit-backdrop-filter: none !important; border-bottom: none !important; }
       .nav-logo img.logo-a { filter: none; }
+      .nav-phone-mobile { display: flex; align-items: center; }
       .event-row { gap: 1rem; padding: 1.2rem 1.2rem; align-items: center; }
       .ev-col { display: flex; flex-direction: column; align-items: center; gap: 0.5rem; flex-shrink: 0; }
       .ev-col .ev-ticket-btn { margin-left: 0; width: auto; font-size: 0.58rem; padding: 0.45rem 0.9rem; }
@@ -867,6 +869,9 @@
     <li><a href="#contact">Контакт</a></li>
     <li><a href="tel:+79024072121" style="color:rgba(125,212,219,0.85); letter-spacing:0.05em;">+7 (902) 407-21-21</a></li>
   </ul>
+  <a href="tel:+79024072121" class="nav-phone-mobile" aria-label="Позвонить">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="rgba(125,212,219,0.9)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.22 1.18 2 2 0 012.18 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.91a16 16 0 006.29 6.29l1.28-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+  </a>
 </nav>
 
 <!-- ═══════════════════════════════════════════════════
