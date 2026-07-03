@@ -549,7 +549,6 @@
       white-space: nowrap;
     }
     .ev-ticket-btn {
-      margin-left: auto;
       flex-shrink: 0;
       cursor: pointer;
       font-family: 'Space Grotesk', sans-serif;
@@ -797,6 +796,9 @@
 
       nav, nav.scrolled { background: transparent !important; backdrop-filter: none !important; -webkit-backdrop-filter: none !important; border-bottom: none !important; }
       .nav-logo img.logo-a { filter: none; }
+      .event-row { gap: 1rem; padding: 1.2rem 1.2rem; align-items: center; }
+      .ev-col { display: flex; flex-direction: column; align-items: center; gap: 0.5rem; flex-shrink: 0; }
+      .ev-col .ev-ticket-btn { margin-left: 0; width: auto; font-size: 0.58rem; padding: 0.45rem 0.9rem; }
       .hero-center { position: relative; top: auto; padding: 0 1.5rem; margin-top: 0; }
       .hero { justify-content: center; padding: 0 0 5rem; }
       .hero-eyebrow {
@@ -896,22 +898,28 @@
     </div>
     <div class="events-list">
       <div class="event-row">
-        <div class="ev-date"><div class="ev-day">03</div><div class="ev-month">Июл</div></div>
+        <div class="ev-col">
+          <div class="ev-date"><div class="ev-day">03</div><div class="ev-month">Июля</div></div>
+          <a href="https://play.flat.audio/user-events/10406" target="_blank" class="ev-ticket-btn">Билет</a>
+        </div>
         <div class="ev-sep"></div>
         <div class="ev-info"><h3>FUTURA & Рома Полак</h3><p>Андрей Шушукин · Vinyl · Рома Полак · Серфинг-саунд</p></div>
-        <a href="https://play.flat.audio/user-events/10406" target="_blank" class="ev-ticket-btn">Билет</a>
       </div>
       <div class="event-row">
-        <div class="ev-date"><div class="ev-day">04</div><div class="ev-month">Июл</div></div>
+        <div class="ev-col">
+          <div class="ev-date"><div class="ev-day">04</div><div class="ev-month">Июля</div></div>
+          <a href="https://play.flat.audio/user-events/10406" target="_blank" class="ev-ticket-btn">Билет</a>
+        </div>
         <div class="ev-sep"></div>
         <div class="ev-info"><h3>YULA VOVK</h3><p>Vinyl · Танцевальная сцена · Летний сет</p></div>
-        <a href="https://play.flat.audio/user-events/10406" target="_blank" class="ev-ticket-btn">Билет</a>
       </div>
       <div class="event-row">
-        <div class="ev-date"><div class="ev-day">05</div><div class="ev-month">Июл</div></div>
+        <div class="ev-col">
+          <div class="ev-date"><div class="ev-day">05</div><div class="ev-month">Июля</div></div>
+          <span class="ev-tag" style="margin-left:0;">Скоро</span>
+        </div>
         <div class="ev-sep"></div>
         <div class="ev-info"><h3>Underground House & Techno</h3><p>Наш любимый формат · Анонсы скоро</p></div>
-        <span class="ev-tag">Скоро</span>
       </div>
     </div>
   </div>
