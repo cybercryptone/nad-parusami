@@ -195,6 +195,7 @@
       top: 28vh;
       left: 0; right: 0;
       text-align: center;
+      padding-bottom: 7rem;
     }
 
     .hero-eyebrow {
@@ -291,6 +292,7 @@
     .scroll-hint {
       position: absolute;
       bottom: 2.5rem;
+      z-index: 1;
       left: 0;
       right: 0;
       display: flex;
@@ -806,6 +808,12 @@
         text-align: center;
       }
       .scroll-hint { bottom: 1rem; }
+    }
+    @media (max-height: 820px) {
+      .scroll-hint { display: none; }
+    }
+    @media (max-height: 900px) {
+      .hero-center { top: 20vh; }
     }
   </style>
   <!-- Yandex.Metrika counter -->
