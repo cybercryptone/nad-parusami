@@ -1,0 +1,1343 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>НАД ПАРУСАМИ — Клуб у Чёрного моря</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600;1,700&family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --black:#080808;
+    --red:#FF2D00;
+    --white:#FFFFFF;
+    --dim:#111111;
+    --mid:#1a1a1a;
+  }
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--black);
+    color:var(--white);
+    font-family:'Inter',sans-serif;
+    overflow-x:hidden;
+    cursor:default;
+  }
+
+  /* GRAIN OVERLAY */
+  #grain{
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    z-index:9999;
+    opacity:0.09;
+    mix-blend-mode:screen;
+  }
+
+  /* TYPOGRAPHY */
+  .serif{font-family:'Cormorant Garamond',serif}
+  .stamp{
+    font-family:'Inter',sans-serif;
+    font-size:10px;
+    font-weight:700;
+    letter-spacing:0.35em;
+    text-transform:uppercase;
+    color:var(--red);
+  }
+  .stamp-white{color:var(--white);opacity:0.5}
+
+  h1,h2,h3{font-family:'Cormorant Garamond',serif;font-weight:300;line-height:0.9}
+  h1{font-size:clamp(72px,14vw,160px);font-style:italic;letter-spacing:-0.02em}
+  h2{font-size:clamp(48px,8vw,100px);font-style:italic}
+  h3{font-size:clamp(28px,4vw,48px);font-style:italic}
+
+  /* NAV */
+  nav{
+    position:fixed;
+    top:0;left:0;right:0;
+    z-index:100;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:20px 40px;
+    border-bottom:1px solid rgba(255,255,255,0.08);
+    background:rgba(8,8,8,0.92);
+    backdrop-filter:none;
+  }
+  .nav-logo{
+    font-family:'Cormorant Garamond',serif;
+    font-size:14px;
+    font-style:italic;
+    letter-spacing:0.1em;
+    color:var(--white);
+    text-decoration:none;
+  }
+  .nav-links{
+    display:flex;
+    gap:32px;
+    list-style:none;
+  }
+  .nav-links a{
+    font-size:10px;
+    font-weight:700;
+    letter-spacing:0.3em;
+    text-transform:uppercase;
+    color:rgba(255,255,255,0.5);
+    text-decoration:none;
+    transition:color 0.15s;
+  }
+  .nav-links a:hover{color:var(--red)}
+  .nav-cta{
+    font-size:10px;
+    font-weight:700;
+    letter-spacing:0.25em;
+    text-transform:uppercase;
+    color:var(--black);
+    background:var(--red);
+    padding:10px 20px;
+    text-decoration:none;
+    transition:background 0.15s;
+  }
+  .nav-cta:hover{background:#cc2400}
+
+  /* HERO */
+  #hero{
+    position:relative;
+    height:100vh;
+    min-height:600px;
+    overflow:hidden;
+    display:flex;
+    flex-direction:column;
+    justify-content:flex-end;
+    padding:0 40px 60px;
+  }
+  #hero-canvas{
+    position:absolute;
+    inset:0;
+    width:100%;height:100%;
+    display:block;
+  }
+  .hero-content{
+    position:relative;
+    z-index:2;
+    max-width:900px;
+  }
+  .hero-eyebrow{
+    margin-bottom:24px;
+    display:flex;
+    align-items:center;
+    gap:16px;
+  }
+  .hero-eyebrow::after{
+    content:'';
+    flex:1;
+    max-width:80px;
+    height:1px;
+    background:var(--red);
+  }
+  .hero-title{
+    color:var(--white);
+    margin-bottom:32px;
+    text-shadow:none;
+  }
+  .hero-title em{color:var(--red)}
+  .hero-sub{
+    font-size:13px;
+    font-weight:400;
+    letter-spacing:0.2em;
+    text-transform:uppercase;
+    color:rgba(255,255,255,0.4);
+    margin-bottom:40px;
+    max-width:400px;
+    line-height:1.8;
+  }
+  .hero-actions{display:flex;gap:16px;align-items:center}
+  .btn-primary{
+    font-size:10px;
+    font-weight:700;
+    letter-spacing:0.3em;
+    text-transform:uppercase;
+    color:var(--black);
+    background:var(--white);
+    padding:16px 32px;
+    text-decoration:none;
+    display:inline-block;
+    transition:background 0.15s,color 0.15s;
+  }
+  .btn-primary:hover{background:var(--red);color:var(--white)}
+  .btn-ghost{
+    font-size:10px;
+    font-weight:700;
+    letter-spacing:0.3em;
+    text-transform:uppercase;
+    color:var(--white);
+    border:1px solid rgba(255,255,255,0.3);
+    padding:16px 32px;
+    text-decoration:none;
+    display:inline-block;
+    transition:border-color 0.15s,color 0.15s;
+  }
+  .btn-ghost:hover{border-color:var(--white);color:var(--white)}
+  .hero-scroll{
+    position:absolute;
+    bottom:60px;right:40px;
+    z-index:2;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:8px;
+    opacity:0.4;
+  }
+  .hero-scroll span{
+    font-size:9px;
+    font-weight:700;
+    letter-spacing:0.35em;
+    text-transform:uppercase;
+    writing-mode:vertical-rl;
+  }
+  .scroll-line{
+    width:1px;
+    height:60px;
+    background:var(--white);
+    animation:scrollLine 2s ease-in-out infinite;
+  }
+  @keyframes scrollLine{
+    0%{transform:scaleY(0);transform-origin:top}
+    50%{transform:scaleY(1);transform-origin:top}
+    50.01%{transform-origin:bottom}
+    100%{transform:scaleY(0);transform-origin:bottom}
+  }
+
+  /* SECTIONS */
+  section{padding:120px 40px}
+  .section-header{
+    display:flex;
+    align-items:flex-start;
+    gap:24px;
+    margin-bottom:80px;
+  }
+  .section-number{
+    font-size:10px;
+    font-weight:700;
+    letter-spacing:0.3em;
+    color:var(--red);
+    padding-top:8px;
+    flex-shrink:0;
+  }
+  .section-divider{
+    width:1px;
+    background:rgba(255,255,255,0.12);
+    align-self:stretch;
+    flex-shrink:0;
+  }
+
+  /* REVEAL ANIMATION */
+  .reveal{
+    opacity:0;
+    transform:translateY(40px);
+    transition:opacity 0.4s cubic-bezier(0.16,1,0.3,1),transform 0.4s cubic-bezier(0.16,1,0.3,1);
+  }
+  .reveal.visible{opacity:1;transform:translateY(0)}
+
+  /* ABOUT */
+  #about{background:var(--black);border-top:1px solid rgba(255,255,255,0.06)}
+  .about-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:80px;
+    align-items:start;
+  }
+  .about-text p{
+    font-size:18px;
+    line-height:1.7;
+    color:rgba(255,255,255,0.7);
+    margin-bottom:24px;
+    font-weight:300;
+  }
+  .about-text p strong{color:var(--white);font-weight:400}
+  .about-stats{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:1px;
+    background:rgba(255,255,255,0.06);
+    border:1px solid rgba(255,255,255,0.06);
+  }
+  .stat-cell{
+    background:var(--black);
+    padding:40px 32px;
+  }
+  .stat-num{
+    font-family:'Cormorant Garamond',serif;
+    font-size:72px;
+    font-weight:300;
+    font-style:italic;
+    line-height:1;
+    color:var(--white);
+    margin-bottom:8px;
+  }
+  .stat-num em{color:var(--red)}
+  .stat-label{
+    font-size:10px;
+    font-weight:700;
+    letter-spacing:0.25em;
+    text-transform:uppercase;
+    color:rgba(255,255,255,0.35);
+  }
+
+  /* JOURNEY / PILLARS */
+  #journey{background:var(--dim);border-top:1px solid rgba(255,255,255,0.06)}
+  .journey-list{display:flex;flex-direction:column;gap:0}
+  .journey-item{
+    display:grid;
+    grid-template-columns:80px 1fr auto;
+    align-items:start;
+    gap:40px;
+    padding:48px 0;
+    border-bottom:1px solid rgba(255,255,255,0.06);
+    cursor:default;
+    transition:background 0.15s;
+  }
+  .journey-item:first-child{border-top:1px solid rgba(255,255,255,0.06)}
+  .journey-item:hover{background:rgba(255,255,255,0.015)}
+  .journey-num{
+    font-family:'Cormorant Garamond',serif;
+    font-size:48px;
+    font-style:italic;
+    font-weight:300;
+    color:rgba(255,255,255,0.12);
+    line-height:1;
+    padding-top:4px;
+  }
+  .journey-content h3{margin-bottom:16px}
+  .journey-content p{
+    font-size:15px;
+    line-height:1.7;
+    color:rgba(255,255,255,0.5);
+    max-width:560px;
+    font-weight:300;
+  }
+  .journey-tag{
+    font-size:9px;
+    font-weight:700;
+    letter-spacing:0.3em;
+    text-transform:uppercase;
+    color:var(--red);
+    border:1px solid var(--red);
+    padding:6px 12px;
+    white-space:nowrap;
+    align-self:flex-start;
+    margin-top:8px;
+  }
+
+  /* EVENTS */
+  #events{background:var(--black);border-top:1px solid rgba(255,255,255,0.06)}
+  .events-intro{
+    max-width:600px;
+    margin-bottom:60px;
+  }
+  .events-intro p{
+    font-size:16px;
+    line-height:1.7;
+    color:rgba(255,255,255,0.5);
+    font-weight:300;
+  }
+  .events-table{width:100%;border-collapse:collapse}
+  .events-table thead tr{
+    border-bottom:1px solid rgba(255,255,255,0.15);
+  }
+  .events-table th{
+    font-size:9px;
+    font-weight:700;
+    letter-spacing:0.3em;
+    text-transform:uppercase;
+    color:rgba(255,255,255,0.3);
+    padding:0 0 16px;
+    text-align:left;
+  }
+  .events-table th:last-child{text-align:right}
+  .events-table tbody tr{
+    border-bottom:1px solid rgba(255,255,255,0.04);
+    transition:background 0.1s;
+  }
+  .events-table tbody tr:hover{background:rgba(255,255,255,0.02)}
+  .events-table td{
+    padding:24px 0;
+    vertical-align:top;
+  }
+  .event-date{
+    font-family:'Cormorant Garamond',serif;
+    font-size:36px;
+    font-style:italic;
+    font-weight:300;
+    color:rgba(255,255,255,0.3);
+    line-height:1;
+    width:100px;
+  }
+  .event-month{
+    font-size:9px;
+    font-weight:700;
+    letter-spacing:0.25em;
+    text-transform:uppercase;
+    color:rgba(255,255,255,0.2);
+    display:block;
+    margin-top:4px;
+  }
+  .event-title{
+    font-family:'Cormorant Garamond',serif;
+    font-size:28px;
+    font-style:italic;
+    font-weight:300;
+    color:var(--white);
+    margin-bottom:6px;
+  }
+  .event-desc{
+    font-size:13px;
+    color:rgba(255,255,255,0.35);
+    font-weight:300;
+    line-height:1.5;
+  }
+  .event-type{
+    display:inline-block;
+    font-size:9px;
+    font-weight:700;
+    letter-spacing:0.25em;
+    text-transform:uppercase;
+    padding:4px 10px;
+    border:1px solid;
+  }
+  .event-type.music{color:var(--white);border-color:rgba(255,255,255,0.2)}
+  .event-type.food{color:var(--red);border-color:var(--red)}
+  .event-type.art{color:rgba(255,255,255,0.5);border-color:rgba(255,255,255,0.2)}
+  .event-price{
+    font-family:'Cormorant Garamond',serif;
+    font-size:32px;
+    font-style:italic;
+    color:var(--white);
+    text-align:right;
+    white-space:nowrap;
+  }
+  .event-price small{
+    font-family:'Inter',sans-serif;
+    font-size:10px;
+    font-weight:700;
+    letter-spacing:0.2em;
+    color:rgba(255,255,255,0.25);
+    display:block;
+    text-transform:uppercase;
+  }
+
+  /* ATMOSPHERE */
+  #atmosphere{background:var(--dim);border-top:1px solid rgba(255,255,255,0.06)}
+  .atm-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr 1fr;
+    gap:1px;
+    background:rgba(255,255,255,0.06);
+    margin-top:60px;
+  }
+  .atm-card{
+    background:var(--dim);
+    padding:48px 40px;
+    border:0;
+    position:relative;
+    overflow:hidden;
+  }
+  .atm-card::before{
+    content:'';
+    position:absolute;
+    top:0;left:0;right:0;
+    height:2px;
+    background:var(--red);
+    transform:scaleX(0);
+    transform-origin:left;
+    transition:transform 0.3s;
+  }
+  .atm-card:hover::before{transform:scaleX(1)}
+  .atm-icon{
+    font-size:10px;
+    font-weight:700;
+    letter-spacing:0.3em;
+    color:var(--red);
+    text-transform:uppercase;
+    margin-bottom:32px;
+    display:block;
+  }
+  .atm-card h3{margin-bottom:16px;font-size:clamp(22px,3vw,36px)}
+  .atm-card p{
+    font-size:14px;
+    line-height:1.7;
+    color:rgba(255,255,255,0.45);
+    font-weight:300;
+  }
+
+  /* BLOG */
+  #blog{background:var(--black);border-top:1px solid rgba(255,255,255,0.06)}
+  .blog-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:1px;
+    background:rgba(255,255,255,0.08);
+    margin-top:60px;
+  }
+  .blog-card{
+    background:var(--black);
+    border:1px solid rgba(255,255,255,0.08);
+    padding:40px;
+    display:flex;
+    flex-direction:column;
+    gap:24px;
+    margin:-1px;
+    transition:border-color 0.15s;
+  }
+  .blog-card:hover{border-color:rgba(255,255,255,0.25);border-width:2px}
+  .blog-cat{
+    font-size:9px;
+    font-weight:700;
+    letter-spacing:0.35em;
+    text-transform:uppercase;
+    color:var(--red);
+  }
+  .blog-card h3{
+    font-size:clamp(20px,2.5vw,32px);
+    line-height:1.1;
+    flex:1;
+  }
+  .blog-excerpt{
+    font-size:13px;
+    line-height:1.7;
+    color:rgba(255,255,255,0.4);
+    font-weight:300;
+  }
+  .blog-meta{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding-top:24px;
+    border-top:1px solid rgba(255,255,255,0.06);
+  }
+  .blog-date{
+    font-size:10px;
+    font-weight:700;
+    letter-spacing:0.2em;
+    color:rgba(255,255,255,0.2);
+    text-transform:uppercase;
+  }
+  .blog-read{
+    font-size:10px;
+    font-weight:700;
+    letter-spacing:0.2em;
+    color:var(--white);
+    text-transform:uppercase;
+    text-decoration:none;
+    opacity:0.4;
+    transition:opacity 0.15s,color 0.15s;
+  }
+  .blog-card:hover .blog-read{opacity:1;color:var(--red)}
+
+  /* CTA */
+  #cta{
+    background:var(--red);
+    padding:120px 40px;
+    text-align:center;
+    position:relative;
+    overflow:hidden;
+  }
+  #cta::before{
+    content:'НАД ПАРУСАМИ';
+    position:absolute;
+    font-family:'Cormorant Garamond',serif;
+    font-size:clamp(80px,18vw,280px);
+    font-style:italic;
+    font-weight:300;
+    color:rgba(0,0,0,0.08);
+    top:50%;left:50%;
+    transform:translate(-50%,-50%);
+    white-space:nowrap;
+    pointer-events:none;
+    line-height:1;
+  }
+  .cta-content{position:relative;z-index:1}
+  .cta-content .stamp{color:rgba(0,0,0,0.5);margin-bottom:24px}
+  #cta h2{
+    color:var(--black);
+    margin-bottom:16px;
+    font-size:clamp(48px,9vw,120px);
+  }
+  .cta-sub{
+    font-size:16px;
+    color:rgba(0,0,0,0.5);
+    margin-bottom:48px;
+    font-weight:300;
+    letter-spacing:0.05em;
+  }
+  .btn-cta-dark{
+    font-size:10px;
+    font-weight:700;
+    letter-spacing:0.3em;
+    text-transform:uppercase;
+    color:var(--white);
+    background:var(--black);
+    padding:20px 48px;
+    text-decoration:none;
+    display:inline-block;
+    transition:background 0.15s;
+  }
+  .btn-cta-dark:hover{background:#1a1a1a}
+
+  /* FOOTER */
+  footer{
+    background:var(--dim);
+    border-top:1px solid rgba(255,255,255,0.06);
+    padding:80px 40px 40px;
+  }
+  .footer-grid{
+    display:grid;
+    grid-template-columns:2fr 1fr 1fr 1fr;
+    gap:60px;
+    margin-bottom:60px;
+  }
+  .footer-brand .nav-logo{font-size:18px;display:block;margin-bottom:16px;text-decoration:none;color:var(--white)}
+  .footer-brand p{
+    font-size:13px;
+    line-height:1.7;
+    color:rgba(255,255,255,0.3);
+    font-weight:300;
+    max-width:260px;
+  }
+  .footer-col h4{
+    font-size:9px;
+    font-weight:700;
+    letter-spacing:0.35em;
+    text-transform:uppercase;
+    color:rgba(255,255,255,0.25);
+    margin-bottom:20px;
+  }
+  .footer-col ul{list-style:none}
+  .footer-col ul li{margin-bottom:10px}
+  .footer-col ul a{
+    font-size:13px;
+    color:rgba(255,255,255,0.45);
+    text-decoration:none;
+    transition:color 0.15s;
+  }
+  .footer-col ul a:hover{color:var(--white)}
+  .footer-bottom{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding-top:40px;
+    border-top:1px solid rgba(255,255,255,0.06);
+  }
+  .footer-copy{
+    font-size:11px;
+    color:rgba(255,255,255,0.2);
+    letter-spacing:0.1em;
+  }
+  .footer-coords{
+    font-family:'Cormorant Garamond',serif;
+    font-size:14px;
+    font-style:italic;
+    color:rgba(255,255,255,0.2);
+  }
+
+  /* HORIZONTAL RULE DECORATION */
+  .hr-red{height:1px;background:var(--red);border:0;margin:0}
+  .hr-dim{height:1px;background:rgba(255,255,255,0.06);border:0;margin:0}
+
+  @media(max-width:900px){
+    nav{padding:16px 20px}
+    .nav-links{display:none}
+    section{padding:80px 20px}
+    #hero{padding:0 20px 40px}
+    .about-grid{grid-template-columns:1fr;gap:40px}
+    .atm-grid{grid-template-columns:1fr}
+    .blog-grid{grid-template-columns:1fr}
+    .footer-grid{grid-template-columns:1fr 1fr;gap:40px}
+    .journey-item{grid-template-columns:60px 1fr;gap:20px}
+    .journey-tag{display:none}
+    .events-table th:nth-child(3),.events-table td:nth-child(3){display:none}
+  }
+  @media(max-width:600px){
+    h1{font-size:52px}
+    .hero-actions{flex-direction:column;align-items:flex-start}
+    .about-stats{grid-template-columns:1fr}
+    .footer-grid{grid-template-columns:1fr}
+    .footer-col:nth-child(3){display:none}
+  }
+</style>
+</head>
+<body>
+
+<!-- FILM GRAIN CANVAS -->
+<canvas id="grain"></canvas>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">Над Парусами</a>
+  <ul class="nav-links">
+    <li><a href="#about">О клубе</a></li>
+    <li><a href="#journey">Пространство</a></li>
+    <li><a href="#events">События</a></li>
+    <li><a href="#blog">Журнал</a></li>
+  </ul>
+  <a href="#cta" class="nav-cta">Забронировать</a>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <canvas id="hero-canvas"></canvas>
+  <div class="hero-content reveal">
+    <div class="hero-eyebrow">
+      <span class="stamp">Черноморский клуб</span>
+    </div>
+    <h1 class="hero-title serif">Над<br><em>Парусами</em></h1>
+    <p class="hero-sub">Терраса под парусным навесом — архитектура, море и живая музыка</p>
+    <div class="hero-actions">
+      <a href="#events" class="btn-primary">Афиша событий</a>
+      <a href="#about" class="btn-ghost">О клубе</a>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    <span>Scroll</span>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-header reveal">
+    <span class="section-number">01</span>
+    <div class="section-divider"></div>
+    <div>
+      <span class="stamp" style="display:block;margin-bottom:16px">О клубе</span>
+      <h2 class="serif">Место,<br>где море<br>говорит</h2>
+    </div>
+  </div>
+  <div class="about-grid">
+    <div class="about-text reveal">
+      <p>«Над Парусами» — это <strong>клуб на берегу Чёрного моря</strong>, чья крыша — это не кровля, а натяжная парусная конструкция. Белые тентовые паруса ловят ветер с моря и дают тень, форму и характер всей террасе.</p>
+      <p>Архитектура здесь — <strong>живой организм</strong>: паруса двигаются, натягиваются, дышат. Под ними — живая музыка, еда с открытой кухни, и горизонт, который никуда не торопится.</p>
+      <p>Мы не ресторан. Не бар. Не клуб в привычном смысле. Мы — <strong>антракт между городом и открытым морем</strong>.</p>
+    </div>
+    <div class="about-stats reveal">
+      <div class="stat-cell">
+        <div class="stat-num serif">12<em>+</em></div>
+        <div class="stat-label">Лет на берегу</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-num serif">7</div>
+        <div class="stat-label">Парусных полотен</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-num serif">340<em>°</em></div>
+        <div class="stat-label">Угол обзора моря</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-num serif">∞</div>
+        <div class="stat-label">Горизонт</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- JOURNEY / 5 PILLARS -->
+<section id="journey">
+  <div class="section-header reveal">
+    <span class="section-number">02</span>
+    <div class="section-divider"></div>
+    <div>
+      <span class="stamp" style="display:block;margin-bottom:16px">Пять начал</span>
+      <h2 class="serif">Пространство<br>клуба</h2>
+    </div>
+  </div>
+  <div class="journey-list">
+    <div class="journey-item reveal">
+      <div class="journey-num serif">I</div>
+      <div class="journey-content">
+        <h3 class="serif">Парусный навес</h3>
+        <p>Семь тентовых полотен натянуты над основной террасой под разными углами. Это не декор — это архитектурная оболочка. Они меняют форму при ветре, отбрасывают разные тени в разное время дня, превращая терассу в живой театр света.</p>
+      </div>
+      <span class="journey-tag">Архитектура</span>
+    </div>
+    <div class="journey-item reveal">
+      <div class="journey-num serif">II</div>
+      <div class="journey-content">
+        <h3 class="serif">Открытая кухня</h3>
+        <p>Кухня — не за стеной, она прямо здесь. Огонь мангала, запах дыма, звук ножа на разделочной доске — всё это часть атмосферы. Мы готовим из того, что привезли рыбаки сегодня утром.</p>
+      </div>
+      <span class="journey-tag">Гастрономия</span>
+    </div>
+    <div class="journey-item reveal">
+      <div class="journey-num serif">III</div>
+      <div class="journey-content">
+        <h3 class="serif">Живая музыка</h3>
+        <p>Не фоновая музыка. Живые выступления камерных составов, джазовых трио, электронных проектов — в разных точках терассы. Иногда один музыкант на закате. Иногда полный состав в полночь.</p>
+      </div>
+      <span class="journey-tag">Музыка</span>
+    </div>
+    <div class="journey-item reveal">
+      <div class="journey-num serif">IV</div>
+      <div class="journey-content">
+        <h3 class="serif">Клубная культура</h3>
+        <p>«Над Парусами» — место, куда приходят не один раз. Закрытые вечера для резидентов, сезонные абонементы, специальные столы у воды. Для тех, кто стал частью этого места.</p>
+      </div>
+      <span class="journey-tag">Сообщество</span>
+    </div>
+    <div class="journey-item reveal">
+      <div class="journey-num serif">V</div>
+      <div class="journey-content">
+        <h3 class="serif">Берег и горизонт</h3>
+        <p>Сам берег — часть клуба. Спуск к воде, деревянный причал, шезлонги в тени прибрежных акаций. Море не фон — оно соучастник каждого вечера здесь.</p>
+      </div>
+      <span class="journey-tag">Природа</span>
+    </div>
+  </div>
+</section>
+
+<!-- EVENTS -->
+<section id="events">
+  <div class="section-header reveal">
+    <span class="section-number">03</span>
+    <div class="section-divider"></div>
+    <div>
+      <span class="stamp" style="display:block;margin-bottom:16px">Ближайшие события</span>
+      <h2 class="serif">Афиша<br>лета</h2>
+    </div>
+  </div>
+  <div class="events-intro reveal">
+    <p>Каждое мероприятие — отдельная история. Мы не делаем два одинаковых вечера. Смотрите расписание, выбирайте свой вечер.</p>
+  </div>
+  <table class="events-table reveal">
+    <thead>
+      <tr>
+        <th>Дата</th>
+        <th>Событие</th>
+        <th>Формат</th>
+        <th style="text-align:right">Вход</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="event-date serif">14<span class="event-month">Июль</span></td>
+        <td>
+          <div class="event-title serif">Закат с джазовым трио</div>
+          <div class="event-desc">Алексей Козлов Квартет — открытая веранда, золотой час, море</div>
+        </td>
+        <td><span class="event-type music">Живая музыка</span></td>
+        <td class="event-price serif">800 ₽<small>Вход</small></td>
+      </tr>
+      <tr>
+        <td class="event-date serif">19<span class="event-month">Июль</span></td>
+        <td>
+          <div class="event-title serif">Ночь черноморской кухни</div>
+          <div class="event-desc">Шеф Влад Пирогов — закрытый дегустационный ужин, 8 подач</div>
+        </td>
+        <td><span class="event-type food">Гастрономия</span></td>
+        <td class="event-price serif">4 200 ₽<small>С человека</small></td>
+      </tr>
+      <tr>
+        <td class="event-date serif">26<span class="event-month">Июль</span></td>
+        <td>
+          <div class="event-title serif">Дрифт. Электронная ночь</div>
+          <div class="event-desc">Резиденты клуба — глубокая электроника под парусным навесом</div>
+        </td>
+        <td><span class="event-type music">Вечеринка</span></td>
+        <td class="event-price serif">1 500 ₽<small>Вход</small></td>
+      </tr>
+      <tr>
+        <td class="event-date serif">02<span class="event-month">Авг.</span></td>
+        <td>
+          <div class="event-title serif">Кино на воде</div>
+          <div class="event-desc">Открытый показ: Антониони «Приключение» — причал, плед, вино</div>
+        </td>
+        <td><span class="event-type art">Кино</span></td>
+        <td class="event-price serif">500 ₽<small>Вход</small></td>
+      </tr>
+      <tr>
+        <td class="event-date serif">09<span class="event-month">Авг.</span></td>
+        <td>
+          <div class="event-title serif">Бранч у паруса</div>
+          <div class="event-desc">Воскресный медленный завтрак — живая акустика, морской бриз</div>
+        </td>
+        <td><span class="event-type food">Бранч</span></td>
+        <td class="event-price serif">Своб.<small>Вход</small></td>
+      </tr>
+      <tr>
+        <td class="event-date serif">16<span class="event-month">Авг.</span></td>
+        <td>
+          <div class="event-title serif">Струны и море</div>
+          <div class="event-desc">Камерный вечер: классическая гитара — Давид Кедасели</div>
+        </td>
+        <td><span class="event-type music">Концерт</span></td>
+        <td class="event-price serif">1 200 ₽<small>Вход</small></td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ATMOSPHERE -->
+<section id="atmosphere">
+  <div class="section-header reveal">
+    <span class="section-number">04</span>
+    <div class="section-divider"></div>
+    <div>
+      <span class="stamp" style="display:block;margin-bottom:16px">Атмосфера</span>
+      <h2 class="serif">Ощущение<br>места</h2>
+    </div>
+  </div>
+  <div class="atm-grid">
+    <div class="atm-card reveal">
+      <span class="atm-icon">01 — Свет</span>
+      <h3 class="serif">Золотой<br>час</h3>
+      <p>С 18:30 до 20:00 парусный навес превращается в фильтр: солнечный свет проходит сквозь тентовое полотно и окрашивает всё вокруг в цвет тёплого янтаря. Фотографы знают: это час, ради которого стоит приехать.</p>
+    </div>
+    <div class="atm-card reveal">
+      <span class="atm-icon">02 — Звук</span>
+      <h3 class="serif">Акустика<br>ветра</h3>
+      <p>Паруса натянуты на стальных тросах. При морском бризе они слегка гудят — низкий, ровный звук, почти как органная нота. Музыканты говорят: это лучшее вступление к любому выступлению.</p>
+    </div>
+    <div class="atm-card reveal">
+      <span class="atm-icon">03 — Запах</span>
+      <h3 class="serif">Море<br>и дым</h3>
+      <p>Иод, соль, и запах дымящегося мангала. Иногда — запах сосновой смолы, если ветер с гор. Это невозможно передать фотографией. Ради этого стоит приехать лично.</p>
+    </div>
+  </div>
+</section>
+
+<!-- BLOG -->
+<section id="blog">
+  <div class="section-header reveal">
+    <span class="section-number">05</span>
+    <div class="section-divider"></div>
+    <div>
+      <span class="stamp" style="display:block;margin-bottom:16px">Журнал</span>
+      <h2 class="serif">Тексты<br>о месте</h2>
+    </div>
+  </div>
+  <div class="blog-grid">
+    <div class="blog-card reveal">
+      <span class="blog-cat">Архитектура</span>
+      <h3 class="serif">Семь парусов: как строилась крыша клуба</h3>
+      <p class="blog-excerpt">Натяжная тентовая конструкция — это не просто красиво. Это инженерное решение, которое работает с ветром, а не против него. История создания парусного навеса «Над Парусами».</p>
+      <div class="blog-meta">
+        <span class="blog-date">12 Июня 2025</span>
+        <a href="#" class="blog-read">Читать →</a>
+      </div>
+    </div>
+    <div class="blog-card reveal">
+      <span class="blog-cat">Гастрономия</span>
+      <h3 class="serif">Утренний улов: кухня, которая начинается в порту</h3>
+      <p class="blog-excerpt">Наш шеф Влад Пирогов каждое утро приезжает на рыбный рынок в 6 утра. К 10 уже известно, что будет в меню. Репортаж о том, как устроена эта система.</p>
+      <div class="blog-meta">
+        <span class="blog-date">28 Мая 2025</span>
+        <a href="#" class="blog-read">Читать →</a>
+      </div>
+    </div>
+    <div class="blog-card reveal">
+      <span class="blog-cat">Музыка</span>
+      <h3 class="serif">Зачем мы играем живую музыку в эпоху плейлистов</h3>
+      <p class="blog-excerpt">Простой ответ: потому что это другое. Не лучше или хуже — принципиально другое переживание. Музыкальный директор клуба Антон Ветров о нашей программной философии.</p>
+      <div class="blog-meta">
+        <span class="blog-date">15 Мая 2025</span>
+        <a href="#" class="blog-read">Читать →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="cta">
+  <div class="cta-content">
+    <p class="stamp" style="margin-bottom:24px;display:block">Бронирование</p>
+    <h2 class="serif">Приходите<br>сегодня</h2>
+    <p class="cta-sub">Столы у воды — по предварительной записи. Веранда открыта.</p>
+    <a href="tel:+7XXXXXXXXXX" class="btn-cta-dark">Забронировать стол</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a href="#" class="nav-logo serif">Над Парусами</a>
+      <p>Клуб на берегу Чёрного моря. Терраса под парусным тентовым навесом. Живая музыка, открытая кухня, горизонт без края.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Навигация</h4>
+      <ul>
+        <li><a href="#about">О клубе</a></li>
+        <li><a href="#journey">Пространство</a></li>
+        <li><a href="#events">События</a></li>
+        <li><a href="#atmosphere">Атмосфера</a></li>
+        <li><a href="#blog">Журнал</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Информация</h4>
+      <ul>
+        <li><a href="#">Бронирование</a></li>
+        <li><a href="#">Частные события</a></li>
+        <li><a href="#">Резидентство</a></li>
+        <li><a href="#">Пресс-кит</a></li>
+        <li><a href="#">Контакты</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Контакты</h4>
+      <ul>
+        <li><a href="#">Черноморское побережье</a></li>
+        <li><a href="tel:+7XXXXXXXXXX">+7 (XXX) XXX-XX-XX</a></li>
+        <li><a href="mailto:info@nadparusami.ru">info@nadparusami.ru</a></li>
+        <li><a href="#">Instagram</a></li>
+        <li><a href="#">Telegram-канал</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span class="footer-copy">© 2025 НАД ПАРУСАМИ — Все права защищены</span>
+    <span class="footer-coords serif">44°36′N 33°32′E — Черноморское побережье</span>
+  </div>
+</footer>
+
+<script>
+// ═══════════════════════════════════════════
+// FILM GRAIN — canvas overlay, 12fps
+// ═══════════════════════════════════════════
+const grainCanvas = document.getElementById('grain');
+grainCanvas.style.cssText = 'position:fixed;inset:0;pointer-events:none;z-index:9999;opacity:0.09;mix-blend-mode:screen;';
+
+function renderGrain() {
+  const gc = grainCanvas.getContext('2d');
+  grainCanvas.width = window.innerWidth;
+  grainCanvas.height = window.innerHeight;
+  const imageData = gc.createImageData(grainCanvas.width, grainCanvas.height);
+  const data = imageData.data;
+  for (let i = 0; i < data.length; i += 4) {
+    const v = Math.random() * 255;
+    data[i] = data[i+1] = data[i+2] = v;
+    data[i+3] = 255;
+  }
+  gc.putImageData(imageData, 0, 0);
+}
+setInterval(renderGrain, 80);
+renderGrain();
+
+// ═══════════════════════════════════════════
+// HERO CANVAS — sail silhouettes, stars, waves
+// ═══════════════════════════════════════════
+const hc = document.getElementById('hero-canvas');
+const ctx = hc.getContext('2d');
+let W, H, stars = [], animFrame;
+
+function resize() {
+  const rect = hc.getBoundingClientRect();
+  W = hc.width = rect.width || hc.clientWidth || hc.offsetWidth || 1280;
+  H = hc.height = rect.height || hc.clientHeight || hc.offsetHeight || 720;
+  stars = [];
+  for (let i = 0; i < 28; i++) {
+    stars.push({
+      x: Math.random() * W,
+      y: Math.random() * H * 0.5,
+      r: Math.random() * 0.8 + 0.2,
+      o: Math.random() * 0.4 + 0.1
+    });
+  }
+}
+
+function drawScene(t) {
+  ctx.clearRect(0, 0, W, H);
+
+  // SKY — almost pure black, slightly lighter at zenith
+  const sky = ctx.createLinearGradient(0, 0, 0, H * 0.55);
+  sky.addColorStop(0, '#0c0c10');
+  sky.addColorStop(0.7, '#0a0c12');
+  sky.addColorStop(1, '#0d1018');
+  ctx.fillStyle = sky;
+  ctx.fillRect(0, 0, W, H * 0.55);
+
+  // SEA — noticeably darker and bluer than sky
+  const sea = ctx.createLinearGradient(0, H * 0.52, 0, H);
+  sea.addColorStop(0,    '#0c1a30');
+  sea.addColorStop(0.25, '#091525');
+  sea.addColorStop(1,    '#040810');
+  ctx.fillStyle = sea;
+  ctx.fillRect(0, H * 0.52, W, H - H * 0.52);
+
+  // HORIZON GLOW — red brutalist accent bleeds into sea
+  const redGlow = ctx.createRadialGradient(W * 0.5, H * 0.53, 0, W * 0.5, H * 0.53, W * 0.6);
+  redGlow.addColorStop(0, 'rgba(120,25,8,0.22)');
+  redGlow.addColorStop(0.4, 'rgba(60,10,4,0.08)');
+  redGlow.addColorStop(1, 'rgba(0,0,0,0)');
+  ctx.fillStyle = redGlow;
+  ctx.fillRect(0, 0, W, H);
+
+  // HORIZON LINE — sharp red-tinted stroke
+  const hg = ctx.createLinearGradient(0, 0, W, 0);
+  hg.addColorStop(0,   'rgba(80,15,5,0)');
+  hg.addColorStop(0.2, 'rgba(150,30,8,0.18)');
+  hg.addColorStop(0.5, 'rgba(180,35,8,0.28)');
+  hg.addColorStop(0.8, 'rgba(150,30,8,0.18)');
+  hg.addColorStop(1,   'rgba(80,15,5,0)');
+  ctx.strokeStyle = hg;
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.moveTo(0, H * 0.535);
+  ctx.lineTo(W, H * 0.535);
+  ctx.stroke();
+
+  // STARS
+  stars.forEach(s => {
+    const twinkle = Math.sin(t * 0.0007 + s.x) * 0.15;
+    ctx.beginPath();
+    ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(255,255,255,${(s.o + twinkle).toFixed(2)})`;
+    ctx.fill();
+  });
+
+  // SEA FOG / MIST at horizon blend
+  const mist = ctx.createLinearGradient(0, H * 0.49, 0, H * 0.58);
+  mist.addColorStop(0, 'rgba(8,12,20,0)');
+  mist.addColorStop(0.5, 'rgba(12,16,28,0.15)');
+  mist.addColorStop(1, 'rgba(8,12,20,0)');
+  ctx.fillStyle = mist;
+  ctx.fillRect(0, H * 0.49, W, H * 0.09);
+
+  drawSea(t);
+  drawWaves(t);
+}
+
+function drawSails(t) {
+  const cx = W * 0.5;
+  const baseY = H * 0.58;
+  const sway = Math.sin(t * 0.0003) * 4;
+
+  // Sail 1 — left large
+  ctx.beginPath();
+  ctx.moveTo(cx - W * 0.28, baseY - 5 + sway * 0.3);
+  ctx.lineTo(cx - W * 0.38, baseY - H * 0.28 + sway);
+  ctx.lineTo(cx - W * 0.05, baseY - H * 0.22 + sway * 0.5);
+  ctx.closePath();
+  ctx.fillStyle = 'rgba(6,6,7,0.95)';
+  ctx.fill();
+
+  // Sail 2 — center dominant
+  ctx.beginPath();
+  ctx.moveTo(cx - W * 0.05, baseY);
+  ctx.lineTo(cx - W * 0.12, baseY - H * 0.38 + sway * 1.2);
+  ctx.lineTo(cx + W * 0.18, baseY - H * 0.25 + sway * 0.6);
+  ctx.lineTo(cx + W * 0.08, baseY - 2);
+  ctx.closePath();
+  ctx.fillStyle = 'rgba(5,5,6,0.97)';
+  ctx.fill();
+
+  // Sail 3 — right medium
+  ctx.beginPath();
+  ctx.moveTo(cx + W * 0.1, baseY - 3 + sway * 0.2);
+  ctx.lineTo(cx + W * 0.22, baseY - H * 0.30 + sway * 0.8);
+  ctx.lineTo(cx + W * 0.38, baseY - H * 0.18 + sway * 0.4);
+  ctx.lineTo(cx + W * 0.3, baseY + 2);
+  ctx.closePath();
+  ctx.fillStyle = 'rgba(7,7,8,0.95)';
+  ctx.fill();
+
+  // Sail 4 — far left small
+  ctx.beginPath();
+  ctx.moveTo(cx - W * 0.32, baseY - 3);
+  ctx.lineTo(cx - W * 0.45, baseY - H * 0.18 + sway * 0.6);
+  ctx.lineTo(cx - W * 0.22, baseY - H * 0.12 + sway * 0.3);
+  ctx.closePath();
+  ctx.fillStyle = 'rgba(6,6,7,0.90)';
+  ctx.fill();
+
+  // Sail 5 — far right accent
+  ctx.beginPath();
+  ctx.moveTo(cx + W * 0.3, baseY - 5);
+  ctx.lineTo(cx + W * 0.42, baseY - H * 0.22 + sway * 0.7);
+  ctx.lineTo(cx + W * 0.52, baseY - H * 0.1 + sway * 0.3);
+  ctx.closePath();
+  ctx.fillStyle = 'rgba(7,6,6,0.88)';
+  ctx.fill();
+
+  // Mast lines — barely visible
+  ctx.strokeStyle = 'rgba(255,255,255,0.04)';
+  ctx.lineWidth = 1;
+  // Center mast
+  ctx.beginPath();
+  ctx.moveTo(cx - W * 0.12, H * 0.18);
+  ctx.lineTo(cx - W * 0.12, baseY);
+  ctx.stroke();
+  // Right mast
+  ctx.beginPath();
+  ctx.moveTo(cx + W * 0.22, H * 0.3);
+  ctx.lineTo(cx + W * 0.22, baseY);
+  ctx.stroke();
+}
+
+function drawSea(t) {
+  const baseY = H * 0.58;
+  // Terrace platform — narrow dark strip at bottom, sea visible behind
+  const terraceH = H * 0.08;
+  ctx.fillStyle = '#040406';
+  ctx.fillRect(0, H - terraceH, W, terraceH);
+
+  // Terrace top edge — thin line
+  ctx.strokeStyle = 'rgba(255,255,255,0.05)';
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.moveTo(0, H - terraceH);
+  ctx.lineTo(W, H - terraceH);
+  ctx.stroke();
+
+  // Window/lamp lights along terrace edge
+  const lights = [
+    { x: 0.15 }, { x: 0.28 }, { x: 0.41 },
+    { x: 0.55 }, { x: 0.68 }, { x: 0.80 }, { x: 0.90 },
+  ];
+  lights.forEach((l, i) => {
+    const lx = W * l.x;
+    const ly = H - terraceH;
+    const flicker = 0.85 + 0.15 * Math.sin(t * 0.0005 + i * 1.7);
+    // Small amber dot
+    ctx.beginPath();
+    ctx.arc(lx, ly, 2, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(200,110,30,${0.55 * flicker})`;
+    ctx.fill();
+    // Glow downward into sea
+    const lg = ctx.createRadialGradient(lx, ly, 0, lx, ly, 35);
+    lg.addColorStop(0, `rgba(180,90,20,${0.12 * flicker})`);
+    lg.addColorStop(1, 'rgba(180,90,20,0)');
+    ctx.fillStyle = lg;
+    ctx.fillRect(lx - 35, ly, 70, 50);
+  });
+
+  // Moon / distant ship light reflection on water
+  const reflX = W * 0.78;
+  const reflY = H * 0.535;
+  const reflGrad = ctx.createLinearGradient(reflX - 12, reflY, reflX + 12, reflY + 80);
+  reflGrad.addColorStop(0, 'rgba(160,130,100,0.12)');
+  reflGrad.addColorStop(0.4, 'rgba(120,90,70,0.06)');
+  reflGrad.addColorStop(1, 'rgba(100,70,50,0)');
+  ctx.fillStyle = reflGrad;
+  // Wavy reflection column
+  ctx.save();
+  ctx.beginPath();
+  const rw = 10 + Math.sin(t * 0.0004) * 4;
+  ctx.moveTo(reflX - rw, reflY);
+  for (let y = reflY; y < reflY + 80; y += 4) {
+    const wobble = Math.sin(y * 0.15 + t * 0.0006) * 6;
+    ctx.lineTo(reflX + wobble + rw, y);
+    ctx.lineTo(reflX + wobble - rw, y + 2);
+  }
+  ctx.closePath();
+  ctx.fillStyle = reflGrad;
+  ctx.fill();
+  ctx.restore();
+}
+
+function drawWaves(t) {
+  // Waves fill most of sea zone (below horizon)
+  const waveBase = H * 0.555;
+  const seaBottom = H * 0.92; // leave room for terrace
+  const waveCount = 6;
+
+  for (let w = 0; w < waveCount; w++) {
+    const wy = waveBase + (seaBottom - waveBase) * (w / waveCount);
+    const amp = 2.5 + w * 2;
+    const freq1 = 0.007 - w * 0.0004;
+    const freq2 = 0.011 - w * 0.0003;
+    const speed = 0.00055 - w * 0.00006;
+    const phase = t * speed + w * 1.9;
+
+    // Build wave path
+    const points = [];
+    for (let x = 0; x <= W; x += 5) {
+      const y = wy
+        + Math.sin(x * freq1 + phase) * amp
+        + Math.sin(x * freq2 + phase * 1.4) * amp * 0.45;
+      points.push([x, y]);
+    }
+
+    // Crest highlight stripe — the visible part of each wave
+    ctx.beginPath();
+    ctx.moveTo(points[0][0], points[0][1]);
+    points.forEach(([x, y]) => ctx.lineTo(x, y));
+    // Fill thin band below crest with slightly lighter sea tone
+    const bandH = amp * 1.8;
+    ctx.lineTo(W, wy + bandH);
+    ctx.lineTo(0, wy + bandH);
+    ctx.closePath();
+    const bandR = 20 + w * 5;
+    const bandG = 45 + w * 8;
+    const bandB = 80 + w * 6;
+    ctx.fillStyle = `rgba(${bandR},${bandG},${bandB},${0.18 - w * 0.02})`;
+    ctx.fill();
+
+    // Crest line — bright steel-blue/white
+    ctx.beginPath();
+    ctx.moveTo(points[0][0], points[0][1]);
+    points.forEach(([x, y]) => ctx.lineTo(x, y));
+    const crestAlpha = Math.max(0.04, 0.28 - w * 0.04);
+    ctx.strokeStyle = `rgba(120,165,210,${crestAlpha})`;
+    ctx.lineWidth = w < 2 ? 1.4 : 0.8;
+    ctx.stroke();
+  }
+}
+
+function animate(t) {
+  drawScene(t);
+  animFrame = requestAnimationFrame(animate);
+}
+
+function init() {
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      resize();
+      animFrame = requestAnimationFrame(animate);
+      document.querySelectorAll('#hero .reveal').forEach(el => el.classList.add('visible'));
+    });
+  });
+}
+if (document.readyState === 'complete') {
+  init();
+} else {
+  window.addEventListener('load', init);
+}
+setTimeout(init, 200);
+window.addEventListener('resize', () => { cancelAnimationFrame(animFrame); resize(); animFrame = requestAnimationFrame(animate); });
+
+// ═══════════════════════════════════════════
+// SCROLL REVEAL — fast hard cut, no soft fade
+// ═══════════════════════════════════════════
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      observer.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.05, rootMargin: '0px 0px -20px 0px' });
+reveals.forEach(el => observer.observe(el));
+
+// ═══════════════════════════════════════════
+// NAV — active section highlight
+// ═══════════════════════════════════════════
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav-links a');
+const navObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const id = e.target.id;
+      navLinks.forEach(a => {
+        a.style.color = a.getAttribute('href') === `#${id}`
+          ? 'rgba(255,255,255,0.85)'
+          : 'rgba(255,255,255,0.35)';
+      });
+    }
+  });
+}, { threshold: 0.35 });
+sections.forEach(s => navObs.observe(s));
+</script>
+</body>
+</html>
