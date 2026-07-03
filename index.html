@@ -158,6 +158,11 @@
     }
 
     .nav-phone-mobile { display: none; }
+    .ev-col { display: contents; }
+    .ev-date { order: 1; }
+    .ev-sep { order: 2; }
+    .ev-info { order: 3; }
+    .ev-col .ev-ticket-btn { order: 4; margin-left: auto; }
     .nav-links {
       display: flex;
       gap: 2.5rem;
@@ -521,7 +526,6 @@
     }
 
     .ev-info {
-      flex: 1;
       min-width: 0;
     }
 
@@ -801,6 +805,7 @@
       .event-row { gap: 1rem; padding: 1.2rem 1.2rem; align-items: center; }
       .ev-col { display: flex; flex-direction: column; align-items: center; gap: 0.5rem; flex-shrink: 0; }
       .ev-col .ev-ticket-btn { margin-left: 0; width: auto; font-size: 0.58rem; padding: 0.45rem 0.9rem; }
+      .ev-info { flex: 1; }
       .hero-center { position: relative; top: auto; padding: 0 1.5rem; margin-top: 0; }
       .hero { justify-content: center; padding: 0 0 5rem; }
       .hero-eyebrow {
