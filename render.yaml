@@ -1,0 +1,6 @@
+services:
+  - type: web
+    name: nad-parusami
+    runtime: static
+    staticPublishPath: .
+    pullRequestPreviewsEnabled: false
